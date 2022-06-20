@@ -20,7 +20,7 @@ The most relevant Data Wrangling's objectives are \cite{datawrang}:
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.18]{img/DATA_WRANGLING.jpg}
+\includegraphics[scale=0.20]{img/DATA_WRANGLING.jpg}
 \caption{Main steps in Data Wrangling}
 \label{fig:dwprocess}
 \end{figure}
@@ -54,7 +54,7 @@ Within the Physionet 2020, the organizers provided a code that calculated 14 fea
 
 \textbf{RR-Interval}: On an ECG, it is the period between two consecutive R-waves of the QRS signal. The former is determined by the sinus node's inherent features as well as autonomic factors.
 
-Then, with the previous measures, the competence calculated the mean, median, standard deviation, variance, skewness and kurtosis ONLY for the first lead. In addition, the used the age and sex provided with the initial raw data.
+Then, with the previous measures, the competence calculated the mean, median, standard deviation, variance, skewness and kurtosis \textbf{ONLY} for the first lead. In addition, the used the age and sex provided with the initial raw data.
 
 \subsubsection{Spectral features}
 
@@ -85,6 +85,15 @@ Then, the schema of features calculated is as follows. For each lead calculate:
         \item \textbf{Shannon’s entropy (same that entropy)}: It’s related to the “amount of information” of a variable. In other words, it measures information of the distribution.
     \end{itemize}
 \end{enumerate}
+
+
+\subsubsection{Spectral features morphology}
+
+\begin{equation} \label{spectral_feature_detail}
+feature_s = l(Lead_i)\_c\_(Coefficient_j)\_(operation_k)
+\end{equation}
+
+Each 636 spectral feature is based on \textit{lead} as l, their \textit{coefficient} as c and \textit{operation} applied on it for example: mean, coefficient percentiles, standard deviation etc. Also, $lead_i$ represents ECG lead number from 00-11, $Coefficient_j$ represents a coefficient number from Discrete Wavelet Transform(there are 5 coefficients in total 1-5) and $operation_k$ represents the operation name like mean as average, standard deviation as std, variance as var, percentiles represents as n5(percentile 5), n25(percentile 25), n50(percentile 50), n75(percentile 75), n95(percentile 95) and entropy applied on coefficient get represented as c1-c5. At the end from each ECG lead, we get 53 features and in 53x12 we get 636 spectral features in total. Below in figure [\ref{fig:feature_importance}] names of features are represented by above represented [\ref{spectral_feature_detail}] morphology. 
 
 
 \subsection{Exploratory Data Analysis (EDA)} \label{4eda}
@@ -189,7 +198,7 @@ Perceptrons are grouped in interconnected layers in a multi-layered perceptron (
 
 Long short-term memory networks, are a type of Deep Learning network. It's a class of recurrent neural networks (RNNs) that can learn long-term dependencies, which is useful for solving sequence prediction issues. Apart from single data points like photos, LSTM has feedback connections, which means it can process the complete sequence of data.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{img/lstm.png}
 \caption{LSTM general schema}
@@ -198,9 +207,65 @@ Long short-term memory networks, are a type of Deep Learning network. It's a cla
 
 An LSTM model's primary role is played by a memory cell called a 'cell state,' which maintains its state across time. The horizontal line that runs through the top of the diagram below represents the cell state. It can be compared to a conveyor belt on which data just passes, unmodified \cite{lstm}.
 
+
+\subsubsection{Model 5 - Challenge Team 2 - ResNet with an SE layer\cite{second_team} } \label{3model5}
+
+Challenge team 2 designed a modified ResNet with larger kernel sizes that models long-term dependencies. They embedded a Squeeze-And-Excitation layer into the modified ResNet to learn the importance of each lead adaptively. 
+
+After obtaining the input signals, they designed ResNet to assign the 12-lead ECG recordings into the 24 diagnostic classes. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{img/team_two_network.png}
+\caption{The proposed network architecture.}
+\label{fig:team_two_network}
+\end{figure}
+
+
+As shown in [\ref{fig:team_two_network}] the improved ResNet consists of one convolutional layer followed by N = 8 residual blocks (ResBs), each of which contain two convolutional layers and a squeeze and excitation (SE) block (Fig. 2). Due to the fact that some samples have multiple classes of 27 clinical diagnoses, instead of using the softmax function in traditional classification problem, they assumed that each class was independent and used the sigmoid function for each output neurons to cope with this multi-task problem.
+
+The first (convolutional) layer and the initial two ResBs units have 64 convolution filters. The number of filters increases by a factor of two for every second ResB unit. The feature dimension is halved after the max pooling layer, and the third, fifth, and seventh ResBs.
+
+The improved ResNet has four modifications from the original ResNet \cite{he2015delving}. First, they modified the final fully connected (FC) layer to incorporate patient age and gender. These two features were passed through another FC layer with 10 neurons prior to inclusion in the final layer. Second, they used a relatively large kernel size of 15 in the first convolutional kernel, and a large kernel size equal to 7 in the latter convolutional kernels. Previous work has shown that large kernel sizes are more helpful for networks to learn meaningful features \cite{hannun2019cardiologist}. 
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{img/team_two_network_2.png}
+\caption{The proposed network architecture.}
+\label{fig:team_two_network_2}
+\end{figure}
+
+Third, as shown in [\ref{fig:team_two_network_2}], they added a dropout layer with a drop out rate of 0.2 between two convolutional kernels in each ResB to reduce the likelihood of overfitting. Finally, They added a SE block into each ResB depicted in [\ref{fig:team_two_network_2}]. The SE block has been to model channel inter-dependencies, and in this case, they incorporate it to model the spatial relationship between the ECG channels. The SE block, introduced by \cite{Hu_2018_CVPR} uses a multi-layer perceptron (MLP) with one hidden layer to calculate the importance of the channels. The parameter r = 16 in Fig. 2 denotes the reduction factor, which controls the capacity of the MLP.
+
+
+\subsubsection{Model 6 - Challenge Team 20 - A hybrid model (CNN + Rule Based )\cite{second_team} } \label{3model6}
+
+Team 20 developed a hybrid model combining a rule-based algorithm with different deep learning architectures. They compared two different Convolutional Neural Networks, a Fully Convolutional Neural Network and an Encoder Network, a combination of both, and with the addition of another neural network using age and gender as input. Two of these combinations were finally combined with a rule-based model using derived ECG features. 
+
+\textbf{CNN Architectures:}
+
+As a starting point for classifying the ECG-signals, they employed FCN and Encoder types of CNN models as described in \cite{ismail2019deep}. Two models were tested without any modifications to the architecture other than changing the input and output layers to fit our input data and output classes. All output layers of each model used a Sigmoid activation function.
+
+To make use of the provided age and gender data, a simpler neural network model with 2 inputs, one hidden layer of 50 units, and 2 outputs in the final layer was added. This new model was combined with our FCN and Encoder models by concatenation of the last layer of the CNNs.
+
+Age and gender data were passed into the simple neural network as integers, but in some information files, the age of the patient was not given and was assigned a value of -1. The gender data was transformed into integers, where a male was set equal to 0, female equal to 1, and unknown was set to 2.
+
+The two CNN models (FCN and Encoder) were combined as parallel models, concatenated on the second last layer. This model was tested with and without a parallel dense layer1.
+
+\textbf{Rule-Based Model}
+
+The rule-based algorithm used the raw ECG signal, without any padding or truncating, as input. R-peak detection \cite{4122029}, and heart rate variability (HRV) analysis was programmed to add relevant derived features to the algorithm. An HRV-score was obtained by computing the root mean square of successive differences between normal heartbeats (RMSSD) using the detected R-peaks as timing indicators of each heartbeat.
+
+The rule-based algorithm was able to classify eight different diagnoses: atrial fibrillation, bradycardia, low QRS-complex, normal sinus rhythm, pacing rhythm, sinus arrhythmia, sinus bradycardia, and sinus tachycardia.
+
+The rule-based algorithm performed classification independent of the deep learning models. If there was disagreement between the rule-based algorithm and the CNN model, the rule-based algorithm overwrote the classification from the CNN model.
+
+
 \subsection{Metrics} \label{3metrics}
 
 It is vital to create metrics that will assist in determining whether a model is better than others in order to determine whether it is better than others. There are explanations for each of the metrics used in the following sections.
+
 
 \subsubsection{Confusion Matrix} \label{4confmatrix}
 
@@ -303,6 +368,46 @@ As a final metrics, I introduced the use of the mean value of Accuracy, Precisio
 % \subsubsection{Random Search} \label{31randomsearch}
 
 % In Random Search, a grid of hyperparameters is created, and the model is trained/tested using only a random mix of these hyperparameters. In addition, Cross-Validation on the training set is an option. When doing Machine Learning tasks, the dataset is usually divided into training and test sets. This is done so that the model may be tested after it has been trained (in this way, it is possible to check its performances when working with unseen data). To ensure that our model is not overfitting the data, we divide the training set into K other divisions using Cross-Validation.
+
+
+\section{Edge computing(EC) fundamentals} \label{4ecomfun}
+
+\subsection{Definition}
+Edge computing is a distributed computing paradigm that brings computation and data storage closer to the sources of data. This is expected to improve response times and save bandwidth. It is an architecture rather than a specific technology. It is a topology- and location-sensitive form of distributed computing.
+
+Edge computing is primarily concerned with transmitting data among the devices at the edge, closer to where user applications are located, rather than to a centralized server (see \ref{fig:ec_fundamentals}). Edge node (or edge client, edge device) is usually the resource-constraint device that end user uses and it is geographically close to the nearest edge server, who has abundant computing resources and high bandwidth communicating with end nodes. When the edge server requires more computing power, it will connect to the cloud server. The most important consequences of this architecture are twofold: latency is dramatically reduced as data does not need to travel as far, and bandwidth availability improves significantly, as the user is no longer relying on sharing a single traffic lane in order to transfer their data. Indeed, this new computing paradigm offers great cost savings for companies who do not have the resources to build dedicated data centers for their operations. Instead, engineers can build a reliable network of smaller and cheaper edge devices. \cite{fedrated_learning_as_edge_computing}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{img/edge_computing_main_pic.jpg}
+\caption{Edge Computing Overview}
+\label{fig:ec_fundamentals}
+\end{figure}
+
+
+In addition, federated learning has been discussed a lot recently. It is a collaborative machine learning framework allowing devices from different resources with different private datasets working together to study and train a global model. Federated learning can not only collaborate the computational resources from different devices, but also preserve the privacy at the same time.
+
+
+Given the common features of both edge computing and federated learning, edge computing is a naturally suitable environment to apply federated learning framework. Therefore, edge federated learning is more and more appealing in both academic research and industry in recent days. Here, we first have a brief introduction to edge computing and federated learning respectively and discuss in details later. 
+
+\subsection{Reasons for Edge Computing:}
+
+There are a set of key reasons why industry executives are transitioning from 
+a traditional cloud-based model to edge computing platforms. The two major factors that were already discussed beforehand are low latency and high bandwidth \cite{satyanarayanan2017emergence}. However, the edge also provides for greater security. For example, sending data to an edge device will give any potential attackers less time to launch an attack as compared to the cloud simply because the latency is lower. Moreover, attacks like DDoS that would normally be debilitating in a cloud-based environment are rendered almost harmless in an edge computing environment because the affected edge devices can be removed from the network without hampering the overall functionality of the network as a whole. Of course, this also means that edge networks are much more reliable as they do not have a single point of failure. As discussed briefly beforehand, edge networks are much more easily scalable because the devices have much smaller footprints. Indeed, a scale-out strategy of scalability rather than a scale-up one offers companies a very attractive way of getting good performance with low cost. Moreover, some of these edge devices or edge data centers may not even need to be built from scratch by any one company. Different stakeholders can partner up to share the resources from the already existing IoT devices in the edge network.
+
+
+\subsection{EC Operating Principles:}
+
+In order to deliver these benefits to end-users, engineers have relied on a common set of key operating principles when building edge computing systems \cite{khan2019edge}:
+
+\textbf{Mobility}: For applications like self-driving cars, the edge devices have to accommodate a constantly moving end-user without sacrificing latency or bandwidth. Some approaches solve this problem by positioning edge devices on the roadside.
+
+
+\textbf{Proximity}: In order to deliver low latency guarantees, the edge devices must be positioned as close as possible to the end users. This could mean performing computation directly at the edge device or investing in a local edge computing data center that is close to the end-user.
+
+\textbf{Coverage:} For edge computing to become ubiquitous, network coverage must be far-reaching. Thus, the exact distribution of nodes in an edge computing framework is imperative to achieving an optimal user experience. Of course, a dense distribution is preferred, but this must be balanced with cost constraints.
+
 
 
 \section{Federated learning (FL) fundamentals} \label{4fedlea}
@@ -417,31 +522,23 @@ On the other hand, FL need to deal with some relevant challenges. The most commo
     \item \textbf{Performance limitations}: In FL, models from several devices are combined to create a superior model. Device-specific factors may hinder the generalization of models from some devices, lowering the accuracy of the model's next generation. Researchers investigated scenarios in which one of the federation's members could use secret backdoors in the joint global model to intentionally attack others.
 \end{itemize}
 
-\subsection{Proposed approaches} \label{proposed_approaches}
+\subsection{Proposed approach} \label{proposed_approaches}
 
-After understanding the theory and characteristics behind the FL techniques I decided to test two different approaches using the PhysioNet 2020 datasets.
+After understanding the theory and characteristics behind the FL techniques I proposed an approach while using the PhysioNet 2020 datasets.
 
-The first approach can be visualized in Figure \ref{fig:fl_approach1}. It is going to be called the Independent and Identically distributed \textbf{(IID) approach}. 
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.4]{img/fl_approach1.png}
-\caption{Approach 1: IDD approach}
-\label{fig:fl_approach1}
-\end{figure}
-
-In the IID approach, I took the 6 databases (more information here xx) and appended them all in a single dataset with 43,101 recordings. After, using the analysis explained in xx, I ended up with 41,894 (filtering out the non-representative classes). Afterwords, I randomly split the data to get train, validation and test datasets. Afterwords, to get the IID splits I performed a Stratified random split, dividing the whole train data in 4 parts. In that way, the distribution of the labels (diagnoses) is the same for each partition.
-
-The second (and more real) approach was called the \textbf{(Non-IID) approach}. It's structure is explained in figure \ref{fig:fl_approach2}.
+It's structure is explained in figure [\ref{fig:fl_approach}].
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.4]{img/fl_approach2.png}
-\caption{Approach 2: Non-IID approach}
-\label{fig:fl_approach2}
+\includegraphics[scale=0.4]{img/fl_approach.png}
+\caption{Proposed approach}
+\label{fig:fl_approach}
 \end{figure}
 
-In the Non-IID approach, I combined all six datasets (additional information here xx) into a single dataset including 43,101 recordings. I came up with 41,894 after utilizing the methodology described in xx (filtering out the non-representative classes). After that, I divided the data into train, validation, and test datasets at random. Later, I used an Unstratified random sampling (with replacement) method to acquire four separate samples from the original data. As a result, each sample has a varied distribution of labels (diagnoses).
+In above approach, I combined all six datasets (additional information here \ref{5dataset}) into a single dataset including 43,101 recordings. I came up with 41,894 after utilizing the methodology described in figure \ref{fig:fl_approach} (filtering out the non-representative classes). After that, I divided the data into train, validation, and test datasets at random. Later, I used an Unstratified random sampling (with replacement) method to acquire four separate samples from the original data. As a result, each sample has a varied distribution of labels (diagnoses).
+
+
+
 
 
 

@@ -139,7 +139,7 @@ From the previous chart it is evident that the most used measure is the \textbf{
 
 To understand how we can we use Fedrated learning as Edge computing. This paper \cite{fedrated_learning_as_edge_computing} is published on 2021 which states that Federated Learning is a machine learning scheme in which a shared prediction model can be collaboratively learned by a number of distributed nodes using their locally stored data. It can provide better data privacy because training data are not transmitted to a central server. Federated learning is well suited for edge computing applications and can leverage the the computation power of edge servers and the data collected on widely dispersed edge devices.
 
-
+Edge federated learning solves the data island problem by fully exploring the huge potential of the data on terminal devices like mobiles or small iot devices without infringing on user’s privacy, and it greatly improves the efficiency of model learning in edge computing systems usually edge server.  Therefore, it can be widely used in many scenarios where privacy protection and resource utilization are critical. It can apply to healthcare system, vehicular network and intelligent recommendation. 
 
 
 \subsection{Methods to handle NON-IID data} \label{non_iid_handling}
@@ -174,7 +174,7 @@ Along the literature, the researches performed have been focused on tackling the
 
 \subsection{Metrics for Federated Learning}
 
-Inside the FL framework the same metrics showed in \ref{chap3metrics} are often used. In the ECG case, metrics like Accuracy, F1-Score, Recall and Precision are usually employed to measure the overall capacity of the model to detect the diagnoses. I will be usually using the same metrics to evaluate the performance of the each node which can be acting as central node(global node) or edge node(local node). 
+Inside the FL framework the same metrics showed in \ref{chap3metrics} are often used. In the ECG case, metrics like Accuracy, F1-Score, Recall and Precision are usually employed to measure the overall capacity of the model to detect the diagnoses. I will be usually using the same metrics to evaluate the performance of the each node which can be acting as edge server(global node) or edge node(local node). 
 
 
 \subsection{PhysioNet/Computing in Cardiology Challenge 2020}
@@ -214,7 +214,7 @@ To investigate the techniques applied by each team, I considered five aspects of
 
 To find open source code of the papers I have search them in Google and Github, I was able to find the source code of 9 papers that was accepted during the challenge including team 2, team 6 and team 20. I will be later using these source code for analysis try to incorporate some additional features that i have identified during centralized learning approach of Fedarated learning. 
 
-It is important to note that \textbf{Pytorch} is most widely used framework by participants implementation of the Physionet Challenge 2020 \ref{fig:framework_used_by_2020_teams}. 'Not Mentioned' either represents that they didn't wrote in their paper what kind of implementation they are following or I am not able to find out their implementation of the paper on the internet. 
+It is important to note that \textbf{Pytorch} is most widely used framework by participants implementation of the Physionet Challenge 2020. [\ref{fig:framework_used_by_2020_teams}]. 'Not Mentioned' either represents that they didn't wrote in their paper what kind of implementation they are following or I am not able to find out their implementation of the paper on the internet. 
 
 \begin{figure}[H]
 \centering
