@@ -215,8 +215,6 @@ In the previous table are depicted the best approaches that managed to get the b
 
 Within the previous results it is easy to realize that the champion model is the one that applies Catboost over the ROS data. The latter obtained an overall index close to 0.68. Nevertheless, the Deep Neural Network (DNN) applied over the ROS data has a close behaviour, having a the mentioned metric in 0.61. Finally, LSTM and XG-Boost does not perform that well compared to the other models. An additional point to mention is that both Catboost and DNN used over the ROS dataset does not show any sign of overfitting since the metrics for train, validation and test sets are almost the same.
 
-xx include comparison with other models from competition
-
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{img/cl_accuracy_methods.PNG}
@@ -309,6 +307,16 @@ In a a FL environment there is a concept called \textbf{communication round} (co
 
 Figure \ref{fig:comm_round_metrics_DNNROS} establishes the behaviour of each metrics along the communication rounds. As expected, the performances gets stable after the 15th comm round approximately. It is relevant to notice that in the first comm round the Precision starts high and the Recall low. But after some updates both measures get steady. Moreover, the curves for train, validation and test are close. The latter means that there are not signals of overfitting.
 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{img/metrics_CL_FLIID.png}
+\caption{Metrics for Centralized (CL) and IID Federated Learning (FL -IID) in the test data set. Also included execution time for  training in minutes (Mins.)}
+\label{figure:metrics_CL_FLIID}
+\end{figure}
+
+The table \ref{figure:metrics_CL_FLIID} includes a summary of all the techniques implemented with the data in the IID and Centralized (CL) approaches. It is remarkable to mention that Catboost and DNN ROS outperformed the model implemented by the second team of the competence.
+
 \subsection{Non-IID approach}
 
 This method was based on the idea of taking four random samples with repetition from the entire dataset of 41,894 registrations (local nodes). The given data in each local node (or client) will be Non-IID \ref{proposed_approaches} approaches because to the unstratified random sampling. Because most ECGs shared across several devices are Non-IID, this scenario is far more plausible.
@@ -369,7 +377,7 @@ Along with the experimentation we wanted to check the behaviour of the models wh
 \label{fig:change_local_nodes_metrics_fedavg}
 \end{figure}
 
-Figure \ref{fig:change_local_nodes_metrics_fedavg} represents the Overall Index measured in the test dataset for all the methods used by changing the number of local nodes. DNN CL and LSTM CL (pink and aquamarine blue dotted lines, respectively) are the references model trained with all the data appended in on single dataset (centralized or common learning). Then, we can see that when considering four or less local nodes the best solution is DNN ROS since it is close enough to the reference model. On the other hand, when using more than 4 local nodes best solution is LSTM, keeping more or less constant when increasing the number of clients.
+Figure \ref{fig:change_local_nodes_metrics_fedavg} represents the Overall Index measured in the test dataset for all the methods used by changing the number of local nodes. DNN CL and LSTM CL are the references model trained with all the data appended in on single dataset (centralized or common learning). Then, we can see that when considering four or less local nodes the best solution is DNN ROS since it is close enough to the reference model. On the other hand, when using more than 4 local nodes best solution is LSTM, keeping more or less constant when increasing the number of clients.
 
 \begin{figure}[H]
 \centering
@@ -396,5 +404,3 @@ Figure \ref{fig:change_local_nodes_metrics_fedprox} represents the Overall Index
 \caption{Running time changing number of local nodes with FedProx}
 \label{fig:change_local_nodes_time_fedprox}
 \end{figure}
-
-

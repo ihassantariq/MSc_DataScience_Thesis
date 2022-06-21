@@ -538,6 +538,89 @@ It's structure is explained in figure [\ref{fig:fl_approach}].
 In above approach, I combined all six datasets (additional information here \ref{5dataset}) into a single dataset including 43,101 recordings. I came up with 41,894 after utilizing the methodology described in figure \ref{fig:fl_approach} (filtering out the non-representative classes). After that, I divided the data into train, validation, and test datasets at random. Later, I used an Unstratified random sampling (with replacement) method to acquire four separate samples from the original data. As a result, each sample has a varied distribution of labels (diagnoses).
 
 
+\section{Model conversion process} \label{4mconverionp}
+
+As depicted in \ref{fig:framework_used_by_2020_teams} , most of teams used \textbf{Pytorch} during the challenge implementation. As I am going to use Tensorflow as primary framework and later Tensorflow Lite for using them in mobile phones or in iot devices. Before going to conversion process itself lets look at fundamentals of Pytorch, Tensorflow and Tensorflow Lite.
+\subsection{Pytorch:}
+PyTorch is an open source machine learning framework based on the Torch library, used for applications such as computer vision and natural language processing, primarily developed by Meta AI. It is free and open-source software released under the Modified BSD license. Although the Python interface is more polished and the primary focus of development, PyTorch also has a C++ interface.
+
+A number of pieces of deep learning software are built on top of PyTorch, including Tesla Autopilot, Uber's Pyro, Hugging Face's Transformers, PyTorch Lightning, and Catalyst.
+
+\break
+\textbf{Features:}
+\begin{enumerate}
+  \item Tensor computing (like NumPy) with strong acceleration via graphics processing units (GPU)
+  \item Deep neural networks built on a tape-based automatic differentiation system.
+\end{enumerate}
+
+
+\subsection{Tensorflow:}
+
+TensorFlow is a free and open-source software library for machine learning and artificial intelligence. It can be used across a range of tasks but has a particular focus on training and inference of deep neural networks.
+
+TensorFlow was developed by the Google Brain team for internal Google use in research and production. The initial version was released under the Apache License 2.0 in 2015. Google released the updated version of TensorFlow, named TensorFlow 2.0, in September 2001. TensorFlow can be used in a wide variety of programming languages, most notably Python, as well as Javascript, C++, and Java. This flexibility lends itself to a range of applications in many different sectors.
+\break\break
+\textbf{Features:}
+
+\begin{enumerate}
+  \item \textit{AutoDifferentiation} is the process of automatically calculating the gradient vector of a model with respect to each of its parameters. 
+  \item TensorFlow includes an \textit{eager execution} mode, which means that operations are evaluated immediately as opposed to being added to a computational graph which is executed later.
+  \item In both eager and graph executions, TensorFlow provides an API for distributing computation across multiple devices with various distribution strategies. 
+  \item To train and assess models, TensorFlow provides a set of \textbf{loss} functions (also known as cost functions).
+\end{enumerate}
+
+There are number of other features Tensorflow framework provides in which Tensorflow Lite is one of them. 
+
+\subsection{Tensorflow Lite:}
+TensorFlow Lite is a set of tools that enables on-device machine learning by helping developers run their models on mobile, embedded, and edge devices.
+\break\break
+\textbf{Features:} 
+
+\begin{enumerate}
+  \item Optimized for on-device machine learning, by addressing 5 key constraints: latency (there's no round-trip to a server), privacy (no personal data leaves the device), connectivity (internet connectivity is not required), size (reduced model and binary size) and power consumption (efficient inference and a lack of network connections).
+  \item Multiple platform support, covering Android and iOS devices, embedded Linux, and micro controllers.
+  \item Diverse language support, which includes Java, Swift, Objective-C, C++, and Python.
+  \item High performance, with hardware acceleration and model optimization.
+  \item End-to-end for common machine learning tasks such as image classification, object detection, pose estimation, question answering, text classification, etc. on multiple platforms.
+\end{enumerate}
+
+\subsection{Conversion steps:}
+
+As we have seen above definition and features of different frameworks. Lets now look at how we can convert Pytorch model to tensorflow lite. 
+
+\begin{enumerate}
+
+\item First we train the model using dataset or get trained model from any challenges team as most of them already stored them in .pt or .pth format. 
+\break We can utilize open source \textbf{\href{https://netron.app/}{Netron}} viewer to look at model. 
+\item After the model is trained we will convert .pt or .pth file into .onnx format by utilizing \textit{torch.onnx.export} function from pytorch library. We can also use \textit{onnxruntime} package to perform inference on converted onnx model.  
+\break
+\textit{ONNX} is an open format built to represent machine learning models. \textit{ONNX} defines a common set of operators - the building blocks of machine learning and deep learning models - and a common file format to enable AI developers to use models with a variety of frameworks, tools, runtimes, and compilers. 
+\item After we have model in onnx format we can utilize \textit{\href{https://github.com/onnx/onnx-tensorflow}{onnx-tensorflow}} package to convert onnx model to \textit{protobuf} as .pb file. The \textit{protbuf} file contains the graph definition as well as the weights of the model. Thus, a pb file is all you need to be able to run a given trained model. It is important to not that .pb file is freezed version of the model.
+
+\begin{verbatim}
+onnx-tf convert -i /path/to/input.onnx -o /path/to/output
+\end{verbatim}
+
+using above command after installing the package should convert the model to .pb format
+\item After that we can directly load the model using \textit{tf.lite.TFLiteConverter.from\textunderscore saved \textunderscore model} function and following the simple code as described 
+\url{https://www.tensorflow.org/lite/guide/ops_select#convert_a_model}
+\end{enumerate}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{img/model_conversion_process.png}
+\caption{Model conversion process}
+\label{fig:model_conversion_process}
+\end{figure}
+
+
+Following the above process or subset of the above process I was able to convert our DNN ROS model[\ref{3model3}], team 2 model[\ref{3model5}] and team 20 [\ref{3model6}]. 
+
+
+
+
+
 
 
 
