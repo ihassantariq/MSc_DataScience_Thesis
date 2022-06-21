@@ -101,11 +101,11 @@ As mentioned in \ref{4dw}, the data wrangling process is usually the first step 
 \label{fig:ecg_example_S0033}
 \end{figure}
 
-Then, the whole data (all the databases) and the features mentioned in \ref{4fe} where calculated. That process took almost 1 hour to run in an using the default configuration of Google Colab. Besides, for each recording I selected the first diagnose (arrhythmia) that appeared as the label to be predicted. The latter process ran in about 2 minutes.
+Then, the whole data (all the databases) and the features mentioned in \ref{4fe} were calculated. That process took almost 1 hour to run in an using the default configuration of Google Colab. Besides, for each recording I selected the first diagnose (arrhythmia) that appeared as the label to be predicted. The latter process ran in about 2 minutes.
 
 \subsection{EDA}
 
-Once the big dataset was loaded, it contained a total of 43,101 recordings and about 764 variables. From the latter, 650 where the features created and the remaining 3 corresponded to the id of the recording, the database that it belongs to and the label (response variable to be predicted). Then, the first analysis need was to examine if the features contained any missing value. Using the function \texttt{bar} from the \texttt{missingno} library, I managed to explore the missing values. In figure \ref{fig:eda_missing} are depicted only the 50 first features' missing counts and percentage.
+Once the big dataset was loaded, it contained a total of 43,101 recordings and about 764 variables. From the latter, 650 features got created containing 14 competition provided features and 636 were spectral features. There were remaining 3 corresponded to the id of the recording, the database that it belongs to and the label (response variable to be predicted). Then, the first analysis need was to examine if the features contained any missing value. Using the function \texttt{bar} from the \texttt{missingno} library, I managed to explore the missing values. In figure \ref{fig:eda_missing} are depicted only the 50 first features' missing counts and percentage.
 
 \begin{figure}[H]
 \centering
@@ -154,7 +154,7 @@ In an analytical context, having a huge amount is a double-edged sword. On the o
 \label{fig:feature_importance}
 \end{figure}
 
-The bar-plot in figure \ref{fig:feature_importance} depicted the most important features to predict the classes obtained by means of the XG-Boost method. The latter provides an automatic raking of the most relevant features to classifier the ECGs. I decided to take the best 120 variables since they managed to get a good enough accuracy, compared to the one obtained using all the features. The best features turned out to be the Entropy for leads: 9, 11, 10; the percentile 5\% for lead 6; and the Median for leads 1, 2.
+The bar-plot in figure \ref{fig:feature_importance} depicted the most important features to predict the classes obtained by means of the XG-Boost method. The latter provides an automatic ranking of the most relevant features to classifier the ECGs. I decided to take the best 120 variables since they managed to get a good enough accuracy, compared to the one obtained using all the features. The best features turned out to be the Entropy for leads: 9, 11, 10; the percentile 5\% for lead 6; and the Median for leads 1, 2.
 
 As an additional tool to enhance the performance of the models there was an implementation of features normalization. In this case I tried three different techniques to transform the features to the same scale. The approaches tried were provided by the \texttt{sklearn} library in Python. Those are: \texttt{StandardScaler}, \texttt{MaxMinScaler} and \texttt{RobustScaler}. In the end, the scenario that provided the best results was using \texttt{RobustScaler}. The latter uses statistics that are resistant to outliers to scale features. The median is removed, and the data is scaled according to the quantile range (defaults to IQR: Interquartile Range). The interquartile range (IQR) is the distance between the first and third quartiles (25th and 3rd quantiles) (75th quantile).
 
