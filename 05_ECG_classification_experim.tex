@@ -154,9 +154,17 @@ In an analytical context, having a huge amount is a double-edged sword. On the o
 \label{fig:feature_importance}
 \end{figure}
 
-The bar-plot in figure \ref{fig:feature_importance} depicted the most important features to predict the classes obtained by means of the XG-Boost method. The latter provides an automatic ranking of the most relevant features to classifier the ECGs. I decided to take the best 120 variables since they managed to get a good enough accuracy, compared to the one obtained using all the features. The best features turned out to be the Entropy for leads: 9, 11, 10; the percentile 5\% for lead 6; and the Median for leads 1, 2.
+The bar-plot in figure \ref{fig:feature_importance} depicted the most important features to predict the classes obtained by means of the XG-Boost method. The latter provides an automatic ranking of the most relevant features to classifier the ECGs. After having importance of features of all 650 features, next step was to try to reduce the unimportant features and
+run the model. During various trial run and keeping F1-Score as primary metric reducing ranked features from 150 -100 F1-score went down from 0.56 to 0.52 and keeping it on 120 features it goes back to 0.56. So, in the end, 120 features got selected which leads to good enough accuracy and f1-
+score compared to the one obtained using all the features.The best features turned out to be the Entropy for leads: 9, 11, 10; the percentile 5\% for lead 6; and the median for leads 1, 2.
 
-As an additional tool to enhance the performance of the models there was an implementation of features normalization. In this case I tried three different techniques to transform the features to the same scale. The approaches tried were provided by the \texttt{sklearn} library in Python. Those are: \texttt{StandardScaler}, \texttt{MaxMinScaler} and \texttt{RobustScaler}. In the end, the scenario that provided the best results was using \texttt{RobustScaler}. The latter uses statistics that are resistant to outliers to scale features. The median is removed, and the data is scaled according to the quantile range (defaults to IQR: Interquartile Range). The interquartile range (IQR) is the distance between the first and third quartiles (25th and 3rd quantiles) (75th quantile).
+As an additional tool to enhance the performance of the models there was an implementation of features \textbf{normalization}. In this case I tried three different techniques to transform the features to the same scale. The approaches tried were provided by the \texttt{sklearn} library in Python. Those are: \texttt{StandardScaler}, \texttt{MaxMinScaler} and \texttt{RobustScaler}. In the end, the scenario that provided the best results was using \texttt{RobustScaler}. 
+
+\begin{equation} \label{robustscaler_eq}
+X_{scale} = \frac{x_i - x_{med}}{x_{75} - x_{25}}
+\end{equation}
+
+\texttt{RobustScaler} [\ref{robustscaler_eq}] uses statistics that was resistant to outliers to scale features. The median removed, and the data scaled according to the quantile range (defaults to IQR: Interquartile Range). The interquartile range (IQR) is the distance between the first and third quartiles (25th and 3rd quantiles) (75th quantile). It is worth mentioning that centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the given dataset.
 
 \subsection{Balancing classes (arrhythmias)}
 
@@ -213,32 +221,32 @@ In the previous table are depicted the best approaches that managed to get the b
 \label{fig:cl_oindex_methods}
 \end{figure}
 
-Within the previous results it is easy to realize that the champion model is the one that applies Catboost over the ROS data. The latter obtained an overall index close to 0.68. Nevertheless, the Deep Neural Network (DNN) applied over the ROS data has a close behaviour, having a the mentioned metric in 0.61. Finally, LSTM and XG-Boost does not perform that well compared to the other models. An additional point to mention is that both Catboost and DNN used over the ROS dataset does not show any sign of overfitting since the metrics for train, validation and test sets are almost the same.
+Within the previous results it is easy to realize that the champion model is the one that applies Catboost over the ROS data. The latter obtained an overall index close to 0.68. Competition team which ranked 2 is at the second position having overall index as 0.64. This model was trained over above \ref{table:scenarios_models} scenario having trained data as 90\%, 5\% validation data and 5\% for testing and same pattern has been followed on team 20 analysis. Nevertheless, the Deep Neural Network (DNN) applied over the ROS data has a close behaviour, having a the mentioned metric in 0.61. Finally, LSTM and XG-Boost does not perform that well compared to the other models. An additional point to mention is that both Catboost and DNN used over the ROS dataset does not show any sign of overfitting since the metrics for train, validation and test sets are almost the same. As for team 2 and team 20 in the above figure train and validation overall index is not shown because they followed their own pattern keeping in mind the competition score during training and validation. 
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.7]{img/cl_accuracy_methods.PNG}
+\includegraphics[scale=0.55]{img/cl_accuracy_methods.png}
 \caption{Accuracy for methods employed in Centralized Learning (CL)}
 \label{fig:cl_accuracy_methods}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.7]{img/cl_f1score_methods.PNG}
+\includegraphics[scale=0.55]{img/cl_f1score_methods.png}
 \caption{F1-Score for methods employed in Centralized Learning (CL)}
 \label{fig:cl_f1score_methods}
 \end{figure}
 
-A similar analysis can be derived from figures \ref{fig:cl_accuracy_methods} and \ref{fig:cl_f1score_methods}, where the Accuracy and F1-Score are shown. In terms of Accuracy, Catboost got 0.67 and DNN got 0.61, both applied over the ROS dataset. It is important to clarify that using Accuracy is not a the best metrics in this dataset since the labels are heavily unbalanced. For that reason, it is better to use the F1-Score. which is more robust to the imbalanced datasets. Then, in terms of F1-Score, Catboost obtained a 0.67 and DNN 0.62.
+A similar analysis can be derived from figures \ref{fig:cl_accuracy_methods} and \ref{fig:cl_f1score_methods}, where the Accuracy and F1-Score are shown. In terms of Accuracy, Catboost got 0.67, team 2 got 0.64 and DNN got 0.61 while applied over the ROS dataset. It is important to clarify that using Accuracy is not a the best metrics in this dataset since the labels are heavily unbalanced. For that reason, it is better to use the F1-Score. which is more robust to the imbalanced datasets. Then, in terms of F1-Score, Catboost obtained a 0.67, team 2 model got 0.63 and DNN 0.62.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{img/times_cl.PNG}
+\includegraphics[scale=0.6]{img/time_cl_teams.png}
 \caption{Execution times for the methods used in CL}
 \label{fig:times_cl}
 \end{figure}
 
-Finally, a measurement of the time taken to train for each model was included. As shown in figure \ref{fig:times_cl}, Catboost took almost 35 minutes to run. On the other hand, DNN and LSTM are algorithms that employed a few time in training (close to 4 minutes in average). Finally, Catboost is the slowest method, although it generates the best results. In counter position, DNN is the fastest method, and the performance is NOT quite different from Catboost.
+Finally, a measurement of the time taken to train for each model was included. As shown in figure \ref{fig:times_cl}, Team 20 model took almost 619 minutes, team 2 took 156 minutes and Catboost took almost 35 minutes to run. On the other hand, DNN and LSTM are algorithms that employed a few time in training (close to 4 minutes in average). Finally, Catboost is the slowest method, although it generates the best results. In counter position, DNN is the fastest method, and the performance is NOT quite different from Catboost and team 2 model. Team 2 and team 20 models took this much time because they are end to end models instead of feature based model. Although I have done some experiments on team 2 which will be explained below. 
 
 
 \section{Federated Learning} \label{5FL}
