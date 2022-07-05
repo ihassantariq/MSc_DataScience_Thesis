@@ -249,6 +249,119 @@ A similar analysis can be derived from figures \ref{fig:cl_accuracy_methods} and
 Finally, a measurement of the time taken to train for each model was included. As shown in figure \ref{fig:times_cl}, Team 20 model took almost 619 minutes, team 2 took 156 minutes and Catboost took almost 35 minutes to run. On the other hand, DNN and LSTM are algorithms that employed a few time in training (close to 4 minutes in average). Finally, Catboost is the slowest method, although it generates the best results. In counter position, DNN is the fastest method, and the performance is NOT quite different from Catboost and team 2 model. Team 2 and team 20 models took this much time because they are end to end models instead of feature based model. Although I have done some experiments on team 2 which will be explained below. 
 
 
+\section{Conversion to Tensorflow Lite } \label{5CTL}
+
+ We can convert potentially any model that is built using TensorFlow core libraries and tools. Once you've built a model with TensorFlow core, you can convert it to a smaller, more efficient ML model format called a TensorFlow Lite. Also, there are other advanced steps related to it if your model is built using tensorflow core libraries by looking at the steps here  \ref{fig:model_conversion_process} we can convert models that are built using either in Pytorch or Matlab. 
+ 
+ 
+\subsection{Model 1(XGBoost) and Model 2(Catboost) conversion}\label{5CTLM1M2}
+
+As both of \href{https://xgboost.readthedocs.io}{XGBoost} and \href{https://catboost.ai}{Catboost} are not built using Tensorflow even there is no direct conversion available I opted out to use trained models built on top of CatBoost and XGBoost. Just to keep in mind that both of these libraries somehow support directly or indirectly iOS platform but not the android. As after conversion I am going to use directly in both iOS/Android to see how they perform in real world scenarios. 
+
+\subsection{Model 3(LSTM)}\label{5CTLM3}
+
+LSTM model is built on top of Tensorflow so it was convertable to tensorflow lite. If we look at LSTM models of simple LSTM, LSTM ROS, LSTM SMOTE, better F1-score and overall index is achieved by simple LSTM model with 0.49 overall index and 0.47 F1-score. LSTM had one problem during conversion step it had two sub graphs which is not supported by tensorflow lite models. To overcome this problem \textbf{TFLite LSTM op } was used and at the end we get the graph that had only one subgraph.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/lstm_conversion_comparison.png}
+\caption{Tensorflow LSTM model's graph to Tensorflow Lite model's graph comparison}
+\label{fig:lstm_conversion_comparison}
+\end{figure}
+
+
+As you can see in \ref{fig:lstm_conversion_comparison}, LSTM Tensorflow original model and Tensorlow Lite model after conversion step taken place using TFLite LSTM op. 
+
+\subsection{Model 4(DNN)}\label{5CTLM4}
+
+As DNN model was also built using Tensorflow with 4 fully connected layers 3 with 500 neurons output in each and relu as activation function with output. In the fourth layer, it has to output 27 classes of arythmia's with probabilities so it using Softmax in the last layer. To look at its graph in tensorflow lite model it is not that interesting and the only intresting thing to note that tensorflow lite as I have converted only support one input at a time and Tensorflow one can support batches of inputs as well. As, I have to use Tensoflow lite version in mobile so most probably it will be given an input to classify one at a time. 
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/dnn_conversion_comparison.png}
+\caption{Tensorflow DNN model's graph to Tensorflow Lite model's graph comparison}
+\label{dnn_conversion_comparison}
+\end{figure}
+
+
+\subsection{Model 5 - Challenge Team 2}\label{5CTLM5}
+
+As challenge 2 team was using Pytorch instead of Tensorflow as primary framework library to build the model. I have to convert the model following all the steps mentioned in \ref{fig:model_conversion_process}. So, first trained model .pt file is converted to ONNX format and get tested, then it got converted to .pb file and at the end when .pb get imported to tensorflow it got directly converted to Tensorflow lite. As challenge team 2 was using ensemble approach where they were using 5 models which got trained over shuffled dataset for training and validation. We will look at the first model in .pt format how it looks and then converted model in Tensorflow Lite as comaprison. Also, this model length is too big to compare it here I will be using first few layers as comparison here. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/resnetse_conversion_comparison.png}
+\caption{Pytorch ResnetSE 18 model's graph to Tensorflow Lite model's graph comparison }
+\label{resenet18_conversion_comparison}
+\end{figure}
+
+As we can see in \ref{resenet18_conversion_comparison} during conversion to tensorflow lite there are too many operation that gets performed including pad, Transpose, Reshape, Mul and etc. So, we can conclude that in conversion process to Tensorflow Lite there are additional operations gets added to model graphs to support some of complex operations. 
+
+
+\subsection{Model 6 - Challenge Team 20}\label{5CTLM6}
+
+As Challenge team 20, worked directly on Tensorflow framework library it was easy to convert the model to Tensorflow Lite directly. Lets look at the original model and converted model comparison side by side. It is also important to mentioned that as they were training 10 different models using shuffled dataset and I choose the one for comaprison which were performing better in Accuracy, F1 measure and overall index. It is important to note that difference between these models was really small it terms of metrics as mentioned before. Model graph length is too big to paste it here so I will be comparing first few layers of it as in the case of Model 5. \ref{5CTLM5} 
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/team20_conversion_comparison.png}
+\caption{Tensorflow Team 20 model's graph to Tensorflow Lite model's graph comparison}
+\label{team20_conversion_comparison}
+\end{figure}
+
+Looking at above figure \ref{team20_conversion_comparison}, we can clearly see that in tensorflow lite graph there are multiple other operations that we haven't seen befofe like Sub, SquaredDifference, Mean, Rsqrt etc. It is evident all the complex operations get converted to more simpler operations in tensorflow lite format of the model.  
+
+
+
+\subsection{Metrics of models}
+
+As written previously, Catboost and XGBoost \ref{5CTLM1M2} are not convertible directly to tensorflow lite. Besides that other models were convertible and it was only worth to look at the models that performed well in terms of accuracy, f1-score and overall index because they will be later used for detecting arythmias in mobile applications. So, DNN ROS with overeall index as 0.62, LSTM with overall index as 0.49, Team 2 model with overall index as 0.64 and Team 20 model(CNN+Rule Based) with overall index of 0.47 was chosen for below analysis. 
+
+
+\begin{figure}[H]
+\subfloat[DNN ROS]{\includegraphics[width = 3in]{img/dnnros_metrics.png}} 
+\subfloat[LSTM]{\includegraphics[width = 3in]{img/lstm_metrics.png}}\\
+\subfloat[Team 2]{\includegraphics[width = 3in]{img/team2_metrics.png}}
+\subfloat[Team 20]{\includegraphics[width = 3in]{img/team20_metrics.png}} 
+\caption{Metrics of models comparing side by side with original model and TF Lite version of the model}
+\label{metricsafterconversion}
+\end{figure}
+
+If we look at above figures we can clearly see that a little drop in every metric after the model is converted to tensorflow lite. As, I didn't wanted the models to be quantize more so that their accuracy, f1-score decreases so I opted for tensorflow lite default conversion operations. 
+
+
+Now if we move toward looking at how much time it takes the to get output from the model either before converting and after converting. There is huge difference when model is converted and we wanted to get the output from the model. It takes slighly and in case of hafty model it takes a lot more time. In real world scenario as we will not be using batching, or multiple inputs to get the output from the model because of that all above converted models only accept one input at a time. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.45]{img/inference_time_of_converted_models.png}
+\caption{Inference Time in minutes of original and converted models}
+\label{inference_time_of_converted_models}
+\end{figure}
+
+If we look at above \ref{figure:inference_time_of_converted_models} figure we can clearly see that LSTM and DNN ROS models are way faster than Team 2 and Team 2. LSTM and DNN ROS models even after conversion is taking less than 0.30 sec to execute. To put it more precisely orginal DNN on test dataset with 2095 features takes 19 seconds to get outputs and .13 seconds for inference in case of converted model which is even less than original model. If we look at LSTM it does the same 13 seconds for original model and 067 seconds on converted model. This means that somehow both DNN and LSTM has to perform less operations and gets lighter and efficient after conversion. While on the other hand Team 2 and Team 20 models takes significantly too much time to output the results. More precisely, in case of Team 2 model it takes 1826 seconds to output 2095 results and 66960 seconds in case of converted model which raises concerns because its significantly slower than original model. As in the case of team 20 inference on original model was significantly smaller as 9.4 seconds and inference on converted model was huge slower 80232 seconds. It maybe due to CPU or GPU inference, I didn't get a chance to look at it. 
+
+\begin{table}
+\centering
+\begin{tabular}{ |p{5cm}||p{3cm}|p{3cm}|}
+ \hline
+ \multicolumn{3}{|c|}{Size of Models} \\
+ \hline
+ Model's Name& Original Size&Converted size\\
+ \hline
+ DNN ROS   & 2.2MB   &   569KB\\
+ LSTM&  82KB   & \textbf{29KB} \\
+ TEAM\#2 ResnetSE &33.8MB & 9.6MB\\
+ TEAM\#20(CNN+Rule Based) & 138.8MB & 11.6MB\\
+ \hline
+\end{tabular}
+ \caption{\label{tab:models_size_after_conversion}Comparison of model size from original to converted models}
+ \end{table}
+
+
 \section{Federated Learning} \label{5FL}
 
 Leveraged on the Centralized Learning method mentioned, it is time to immerse in the Federated Learning (FL) approach executed for this ECG dataset. With the CL it was possible to get an overall performance with the best techniques and scenarios to be applied. To deal with the FL proposed, there were two possible ways to work with the database in a Federated context. Those possibilities will be explained in the following chapters.
