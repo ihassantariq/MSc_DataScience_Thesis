@@ -354,12 +354,52 @@ If we look at above \ref{figure:inference_time_of_converted_models} figure we ca
  \hline
  DNN ROS   & 2.2MB   &   569KB\\
  LSTM&  82KB   & \textbf{29KB} \\
- TEAM\#2 ResnetSE &33.8MB & 9.6MB\\
- TEAM\#20(CNN+Rule Based) & 138.8MB & 11.6MB\\
+ TEAM\#2 &33.8MB & 9.6MB\\
+ TEAM\#20  & 138.8MB & 11.6MB\\
  \hline
 \end{tabular}
  \caption{\label{tab:models_size_after_conversion}Comparison of model size from original to converted models}
  \end{table}
+ 
+ As you can see from \ref{tab:models_size_after_conversion}, the smallest model is LSTM and it even gets smaller when converted to tensorflow lite. Team \#20 model is really huge and its get converted to 11.6MB. Maybe because of that it takes time during inference. 
+ 
+\subsection{Models Deployment}
+
+As part of the models testing on mobile devices after conversion. LSTM, DNN ROS and Team \#2 model has been deployed on the mobile devices while building a small demo application using flutter. \href{https://flutter.dev/}{Flutter} is an open-source UI software development kit created by Google. As flutter supports Tensorflow Lite models only Catboost, XGBoost are not deployed, as well as Team \#20 model because accuracy,f1-score of the team \#20 model is very less. 
+
+In the demo application, two main packages has been used \href{https://pub.dev/packages/tflite\_flutter}{tflite\_flutter} and \href{https://pub.dev/packages/csv}{csv}. \textit{csv} package has been used to read csv files and \textit{tflite\_flutter} is used to inference converted models. 
+
+\textbf{DNN ROS and LSTM}
+
+For DNN ROS and LSTM, I saved the features of test dataset 5\% after normalizing and standardizing as explained above in csv file. This csv file is used directly for inputs to the models. Then as both models are trained to classify single arythmia. Output of the model is based on classifying 27 arythmia's so whichever arythmia type is at highest probability is shown as predicted and then two more types according to highest probabilities is shown in \ref{dnn_deloyment} 
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{img/dnn_deloyment.png}
+\caption{iOS and Android DNN model classification example}
+\label{dnn_deloyment}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{img/lstm_deployment.png}
+\caption{iOS and Android LSTM model classification example}
+\label{dnn_deloyment}
+\end{figure}
+
+\textbf{Team \# 2}
+
+For team \# 2, as they were using end to end model to classify 12-lead ECG, so for each input after pre processing was saved as one csv file instead .mat file in original dataset and age, sex and dx is saved separately as well in other csv file to provide it to the model. As team \# 2 was using ensemble model, combining 5 of them to output the results for final classification there has been post processing done on mobile application as it was in original source code provided by \ref{fig:team_two_network_2}. If we look at closely their model is doing multi class classification instead of predicting one arythmia at time because a patient can have more than one arythmia. Also, during prediction probabilities are divided into for how many arythmias its predict. For example if the model is predicting two different arythmia based on 12-lead ECG it will make whole precentage as 200\% instead of 100\%. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{img/lstm_deployment.png}
+\caption{iOS and Android Team \# 2 model classification example}
+\label{dnn_deloyment}
+\end{figure}
+
+
 
 
 \section{Federated Learning} \label{5FL}
