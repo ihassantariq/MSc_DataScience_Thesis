@@ -388,9 +388,9 @@ For DNN ROS and LSTM, I saved the features of test dataset 5\% after normalizing
 \label{dnn_deloyment}
 \end{figure}
 
-\textbf{Team \# 2}
+\textbf{Competence Team \# 2}
 
-For team \# 2, as they were using end to end model to classify 12-lead ECG, so for each input after pre processing was saved as one csv file instead .mat file in original dataset and age, sex and dx is saved separately as well in other csv file to provide it to the model. As team \# 2 was using ensemble model, combining 5 of them to output the results for final classification there has been post processing done on mobile application as it was in original source code provided by \ref{fig:team_two_network_2}. If we look at closely their model is doing multi class classification instead of predicting one arythmia at time because a patient can have more than one arythmia. Also, during prediction probabilities are divided into for how many arythmias its predict. For example if the model is predicting two different arythmia based on 12-lead ECG it will make whole precentage as 200\% instead of 100\%. 
+For competence team \# 2, as they were using end to end model to classify 12-lead ECG, so for each input after pre processing was saved as one csv file instead .mat file in original dataset and age, sex and dx is saved separately as well in other csv file to provide it to the model. As competence team \# 2 was using ensemble model, combining 5 of them to output the results for final classification there has been post processing done on mobile application as it was in original source code provided by \ref{fig:team_two_network_2}. If we look at closely their model is doing multi class classification instead of predicting one arrhythmia at time because a patient can have more than one arrhythmia. Also, during prediction probabilities are divided into for how many arrhythmias its predict. For example if the model is predicting two different arrhythmia's based on 12-lead ECG it will make whole percentage as 200\% instead of 100\%. 
 
 \begin{figure}[H]
 \centering
@@ -455,7 +455,7 @@ With FL it is possible to control the performance that the models has in each lo
 \label{fig:iid_local_nodes_acc}
 \end{figure}
 
-In figure \ref{fig:iid_local_nodes_acc} is depicted the behaviour of each local node with respect to the accuracy for both the training and validation datasets. In general, the models among the clients have a similar behaviour. All of them get stabilized around the 5th epoch. It is important to clarify that the accuracy for train and validation seems considerably far from each other. The latter would mean that the models are overfitting. Nevertheless, the train sample is an oversampled data while the validation is a part of the original data, then, it is expected to such a behaviour.
+In figure \ref{fig:iid_local_nodes_acc} is depicted the behaviour of each local node with respect to the accuracy for both the training and validation datasets. In general, the models among the clients have a similar behaviour. All of them get stabilized around the 5th epoch. It is important to clarify that the accuracy for train and validation seems considerably far from each other. The latter would mean that the models are over-fitting. Nevertheless, the train sample is an over-sampled data while the validation is a part of the original data, then, it is expected to such a behaviour.
 
 In a a FL environment there is a concept called \textbf{communication round} (comm round). The latter begins when a model is trained inside each one of the local nodes. Later the weights of the models are passed to the global node to be aggregated there. And finally, the communication round finishes when each local model is updated with the new weights. Then, it is expected that in each comm round the performance of the model increases. Moreover, it should get stable after some trials.
 
@@ -466,7 +466,7 @@ In a a FL environment there is a concept called \textbf{communication round} (co
 \label{fig:comm_round_metrics_DNNROS}
 \end{figure}
 
-Figure \ref{fig:comm_round_metrics_DNNROS} establishes the behaviour of each metrics along the communication rounds. As expected, the performances gets stable after the 15th comm round approximately. It is relevant to notice that in the first comm round the Precision starts high and the Recall low. But after some updates both measures get steady. Moreover, the curves for train, validation and test are close. The latter means that there are not signals of overfitting.
+Figure \ref{fig:comm_round_metrics_DNNROS} establishes the behaviour of each metrics along the communication rounds. As expected, the performances gets stable after the 15th comm round approximately. It is relevant to notice that in the first comm round the Precision starts high and the Recall low. But after some updates both measures get steady. Moreover, the curves for train, validation and test are close. The latter means that there are not signals of over fitting.
 
 
 \begin{table*}[ht]
