@@ -1,6 +1,6 @@
 \chapter{Analytical techniques and tools} \label{chap4}
 
-The parts that follow go over the most important analysis and approaches for studying, modeling, and predicting ECG arrhythmia diagnosis.
+The parts that follow go over the most important analysis and approaches for studying, modelling, and predicting ECG arrhythmia diagnosis.
 
 \section{Commonly used techniques and tools} \label{4commontools}
 
@@ -8,10 +8,10 @@ The parts that follow go over the most important analysis and approaches for stu
 
 Data wrangling is the act of cleaning and combining chaotic and difficult data sets for easy access and analysis. With the amount of data and data sources growing all the time, it's more vital than ever to arrange massive volumes of data for analysis \cite{datawrang}. To facilitate data consumption and organization, this method normally requires manually transforming and mapping data from one raw format to another.
 
-The most relevant Data Wrangling's objectives are \cite{datawrang}:
+The most relevant Data Wrangling objectives are \cite{datawrang}:
 
 \begin{itemize}
-    \item Collect data from a variety of sources in order to uncover "deeper intelligence."
+    \item Collect data from a variety of sources to uncover "deeper intelligence."
     \item As soon as feasible, get reliable, actionable data into the hands of business analysts.
     \item Reduce the amount of time it takes to collect and organize jumbled data before it can be used.
     \item Allow data scientists and analysts to focus on data analysis instead of data manipulation.
@@ -20,7 +20,7 @@ The most relevant Data Wrangling's objectives are \cite{datawrang}:
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.20]{img/DATA_WRANGLING.jpg}
+\includegraphics[scale=0.18]{img/DATA_WRANGLING.jpg}
 \caption{Main steps in Data Wrangling}
 \label{fig:dwprocess}
 \end{figure}
@@ -30,9 +30,9 @@ The data wrangling approach typically consists of six iterative steps, as seen i
 \begin{enumerate}
     \item \textbf{Publishing:} Data wranglers prepare data for downstream usage - whether by a specific user or program - and identify any special actions or logic that were employed to do so. 
     
-    \item \textbf{Discovering:} Before delving into the data, it's important to first have a better knowledge of what's there, since this will influence how you examine the data.
+    \item \textbf{Discovering:} Before delving into the data, it's important to first have a better knowledge of what's there since this will influence how you examine the data.
 
-    \item \textbf{Validating:} These are recurrent programming sequences that verify data quality, consistency, and security. Validation can include things like ensuring that qualities that should be distributed on a regular basis are distributed uniformly.
+    \item \textbf{Validating:} These are recurrent programming sequences that verify data quality, consistency, and security. Validation can include things like ensuring that qualities that should be distributed regularly are distributed uniformly.
     
     \item \textbf{Enrichment:} "What more types of data can be obtained from what already exists?" one can question during the data wrangling stage. or "What further information could assist me in making better selections based on the current data?"
     
@@ -45,10 +45,10 @@ The data wrangling approach typically consists of six iterative steps, as seen i
 
 \subsection{Feature Engineering (FE)} \label{4fe}
 
-The act of choosing, altering, and transforming raw data into features that may be utilized in supervised learning is known as feature engineering. It may be necessary to build and train better features in order for machine learning to perform well on new datasets.
+The act of choosing, altering, and transforming raw data into features that may be utilized in supervised learning is known as feature engineering. It may be necessary to build and train better features for machine learning to perform well on new datasets.
 
 \subsubsection{Challenge features}
-Within the Physionet 2020, the organizers provided a code that calculated 14 features leveraged on the recordings. Those variables where based on the R-Peaks and the RR interval.
+Within the Physionet 2020, the organizers provided a code that calculated 14 features leveraged on the recordings. Those variables were based on the R-Peaks and the RR interval.
 
 \textbf{R-Peaks}: It refers to the R wave's highest amplitude (as seen in Figure \ref{fig:ECG_waveform}).
 
@@ -58,9 +58,9 @@ Then, with the previous measures, the competence calculated the mean, median, st
 
 \subsubsection{Spectral features}
 
-Leveraged on the solution developed by \cite{github_spectralfeatures}, I implemented 636 features that deals with the spectral part of the signals provided in the ECG. Spectral analysis (where the spectral features were derived) is a frequently utilized tool for exploring biomedical data. The waveform component forms, their time positions within the cardiac cycle, and the regularity of the heart period all influence the ECG signal's spectrum (\cite{spectralfeatures}). 
+Leveraged on the solution developed by \cite{github_spectralfeatures}, I implemented 636 features that deal with the spectral part of the signals provided in the ECG. Spectral analysis (where the spectral features were derived) is a frequently utilized tool for exploring biomedical data. The waveform component forms, their time positions within the cardiac cycle, and the regularity of the heart period all influence the ECG signal's spectrum (\cite{spectralfeatures}). 
 
-Usually the Fourier Transform (FT) is used to extract information from signals like ECG. Nevertheless, the Fourier Transform has the drawback of capturing global frequency information, or frequencies that are present throughout a whole signal. This type of signal decomposition may not be appropriate for many applications, such as electrocardiography (ECG), which involves signals with short periods of distinctive oscillation. The Wavelet Transform, which decomposes a function into a set of wavelets, is another option that corrects the FT approach \cite{spectral_features}.
+Usually, the Fourier Transform (FT) is used to extract information from signals like ECG. Nevertheless, the Fourier Transform has the drawback of capturing global frequency information or frequencies that are present throughout a whole signal. This type of signal decomposition may not be appropriate for many applications, such as electrocardiography (ECG), which involves signals with short periods of distinctive oscillation. The Wavelet Transform, which decomposes a function into a set of wavelets, is another option that corrects the FT approach \cite{spectral_features}.
 
 \begin{figure}[H]
 \centering
@@ -82,7 +82,7 @@ Then, the schema of features calculated is as follows. For each lead calculate:
     \begin{itemize}
         \item \textbf{Statistics}: Percentiles (5, 25, 50, 75, 95), mean, standard deviation and variance.
         
-        \item \textbf{Shannon’s entropy (same that entropy)}: It’s related to the “amount of information” of a variable. In other words, it measures information of the distribution.
+        \item \textbf{Shannon’s entropy (same that entropy)}: It’s related to the “amount of information” of a variable. In other words, it measures the information of the distribution.
     \end{itemize}
 \end{enumerate}
 
@@ -109,7 +109,7 @@ Exploratory Data Analysis refers to the critical process of performing initial i
 
 \subsection{Unbalanced classes} \label{3unbclass}
 
-One of the most difficult issues when training a model is modeling imbalanced data \cite{smote1}. When dealing with classification problems, the intended class balance is quite important. When a dataset has an uneven distribution of classes, the models attempt to learn only the dominant class, resulting in biased predictions.
+One of the most difficult issues when training a model is modelling imbalanced data \cite{smote1}. When dealing with classification problems, the intended class balance is quite important. When a dataset has an uneven distribution of classes, the models attempt to learn only the dominant class, resulting in biased predictions.
 
 One approach for addressing this issue is random sampling. Random resampling can be accomplished in two ways, each with its own set of benefits and drawbacks:
 
@@ -120,7 +120,7 @@ One approach for addressing this issue is random sampling. Random resampling can
 
 To put it another way, both oversampling and undersampling include creating bias by selecting more instances from one class than from another. The prior is used to compensate for an imbalance that is already present in the data or that is likely to occur if a perfectly random sample is obtained \cite{smote2}. Because it makes no assumptions about the data, random sampling is a naive strategy. To minimize the data's influence on the Machine Learning algorithm, a fresh adjusted version of the data with a new class distribution is generated.
 
-Random Oversampling and SMOTE were the two oversampling techniques chosen for this project. Synthetic Minority Oversampling Technique is a technique for creating synthetic samples for the minority class. Overcoming the problem of overfitting produced by random oversampling is easier with this method. It focuses on the feature space in order to generate new examples by interpolating between positive occurrences that are near in proximity.
+Random Oversampling and SMOTE were the two oversampling techniques chosen for this project. The synthetic Minority Oversampling Technique is a technique for creating synthetic samples for the minority class. Overcoming the problem of overfitting produced by random oversampling is easier with this method. It focuses on the feature space to generate new examples by interpolating between positive occurrences that are near in proximity.
 
 \begin{figure}[H]
 \centering
@@ -129,10 +129,10 @@ Random Oversampling and SMOTE were the two oversampling techniques chosen for th
 \label{fig:smoteproc}
 \end{figure}
 
-SMOTE uses the k-nearest neighbor technique to create synthetic data. To make them, it follows the instructions below. \cite{smote1}:
+SMOTE uses the k-nearest neighbour technique to create synthetic data. To make them follow the instructions below. \cite{smote1}:
 
 \begin{enumerate}
-    \item Find the nearest neighbors of the feature vector.
+    \item Find the nearest neighbours of the feature vector.
     \item Determine the distance between the two sample sites.
     \item At random, the distance is multiplied by an integer between 0 and 1.
     \item Find a new point on the line segment at the calculated distance.
@@ -141,15 +141,15 @@ SMOTE uses the k-nearest neighbor technique to create synthetic data. To make th
 
 \subsection{Machine Learning Models} \label{3mlmodels}
 
-Classifiers are the models provided in the following sections. These tools were created with the goal of determining which behaviors are more likely to be associated with various arrhythmia patterns. Each of these methods is widely utilized in various data-driven systems, and they have demonstrated useful behavior in a variety of classifying tasks, including ECG classification (\ref{methods_ECG_class}).
+Classifiers are the models provided in the following sections. These tools were created to determine which behaviours are more likely to be associated with various arrhythmia patterns. Each of these methods is widely utilized in various data-driven systems, and they have demonstrated useful behaviour in a variety of classifying tasks, including ECG classification (\ref{methods_ECG_class}).
 
 The various versions of the dataset were created using Python Notebooks in Google Colab. This section will detail the key models that were tested and evaluated.
 
 \subsubsection{Model 1 - (XGB) XG-Boost algorithm} \label{3model1}
 
-The XG-Boost technique, which has proven to be effective in a variety of classification and regression problems, is the first attempt to classify the ECG signals. The aforementioned algorithm has been used to a variety of sectors, including economics, credit rating, and health-related difficulties. The preceding are reasons to expect that such a strategy will be effective in the field of arrhythmia detection today.
+The XG-Boost technique, which has proven to be effective in a variety of classification and regression problems, is the first attempt to classify ECG signals. The aforementioned algorithm has been used in a variety of sectors, including economics, credit rating, and health-related difficulties. The preceding are reasons to expect that such a strategy will be effective in the field of arrhythmia detection today.
 
-XG-Boost is a decision-tree-based ensemble Machine Learning approach that uses gradient boosting (\cite{xgb1} \cite{xgb2}). When it comes to unstructured data prediction, \textit{Artificial Neural Networks} outperform all other algorithms or frameworks (text, audio, pictures, etc.). However, for small-to-medium tabular data, such as the one utilized in this challenge, \textit{decision tree-based} algorithms are now rated best-in-class.
+XG-Boost is a decision-tree-based ensemble Machine Learning approach that uses gradient boosting (\cite{xgb1} \cite{xgb2}). When it comes to unstructured data prediction, \textit{Artificial Neural Networks} outperforms all other algorithms or frameworks (text, audio, pictures, etc.). However, for small-to-medium tabular data, such as the one utilized in this challenge, \textit{decision tree-based} algorithms are now rated best-in-class.
 
 XG-Boost minimizes a loss function to provide an additive expansion of the objective function, similar to gradient boosting. Because XG-Boost is only interested in decision trees as base classifiers, the complexity of the trees is controlled using a variation of the loss function.
 
@@ -162,11 +162,11 @@ L = \sum_{i=1}^{n}{L(y_i,\hat{y_i})}+\sum_{k=1}^{K}{\Theta(p_k)}
 
 \noindent
 
-The number of leaves on the tree is Z, and the leaf output scores are w (\cite{xgb2}). This loss function can be included into the split criterion of decision trees, resulting in a pre-pruning strategy. Trees with a greater $\gamma$ value are easier to understand. The amount of loss reduction gain required to separate an internal node is determined by $\gamma$ (\cite{xgb1}). Shrinkage is a regularization parameter in XG-Boost that decreases the step size in the additive expansion. Finally, other techniques such as tree depth can be utilized to keep the trees from becoming too complex. As a result of lowering tree complexity, the models are trained faster and need less storage space.
+The number of leaves on the tree is Z, and the leaf output scores are w (\cite{xgb2}). This loss function can be included in the split criterion of decision trees, resulting in a pre-pruning strategy. Trees with a greater $\gamma$ value are easier to understand. The amount of loss reduction gain required to separate an internal node is determined by $\gamma$ (\cite{xgb1}). Shrinkage is a regularization parameter in XG-Boost that decreases the step size in the additive expansion. Finally, other techniques such as tree depth can be utilized to keep the trees from becoming too complex. As a result of lowering tree complexity, the models are trained faster and need less storage space.
 
 \subsubsection{Model 2 - (Catboost) Catboost} \label{3model2}
 
-The second candidate in predicting the arrhythmia type for ECG is the Catboost algorithm. The latter is a decision tree gradient boosting technique. It was created by Yandex (with its final version in 2017) researchers and engineers and is used by Yandex and other firms such as CERN, Cloudflare, and Careem taxi for search, recommendation systems, personal assistant, self-driving cars, weather prediction, and many other activities. Anyone can use it because it is open-source.
+The second candidate for predicting the arrhythmia type for ECG is the Catboost algorithm. The latter is a decision tree gradient boosting technique. It was created by Yandex (with its final version in 2017) researchers and engineers and is used by Yandex and other firms such as CERN, Cloudflare, and Careem taxi for search, recommendation systems, personal assistant, self-driving cars, weather prediction, and many other activities. Anyone can use it because it is open-source.
 
 \begin{figure}[H]
 \centering
@@ -175,7 +175,7 @@ The second candidate in predicting the arrhythmia type for ECG is the Catboost a
 \label{fig:catboost}
 \end{figure}
 
-The implementation of ordered boosting \cite{catboost}, a permutation-driven alternative to the conventional approach, and a novel technique for processing category characteristics are two key algorithmic innovations offered in CatBoost. Both strategies were developed in order to combat a prediction shift induced by a specific type of target leakage found in all current gradient boosting algorithm implementations.
+The implementation of ordered boosting \cite{catboost}, a permutation-driven alternative to the conventional approach, and a novel technique for processing category characteristics are two key algorithmic innovations offered in CatBoost. Both strategies were developed to combat a prediction shift induced by a specific type of target leakage found in all current gradient boosting algorithm implementations.
 
 \subsubsection{Model 3 - (DNN) Deep Neural Networks} \label{3model3}
 
@@ -183,7 +183,7 @@ A Deep Neural Network is another method for predicting ECG diagnosis. A DNN is a
 
 In this context, deep neural networks refer to organic or artificial systems of neurons (\cite{ann1}). Deep neural networks can adapt to changing input and produce the best possible result without requiring the output criteria to be modified because they can adapt to changing input. Neural networks, an artificial intelligence-based concept, are swiftly gaining popularity in the development of trading systems.
 
-Neural networks aid in time-series forecasting, algorithmic trading, securities classification, credit risk modeling, and the generation of proprietary indicators and price derivatives in the financial world (\cite{ann2} \cite{ann3}). The deep neural network of the human brain is akin to a neural network. A "neuron" in a deep neural network is a mathematical function that collects and categorizes data according to a set of rules. The network closely resembles curve fitting and regression analysis, two statistical methods.
+Neural networks aid in time-series forecasting, algorithmic trading, securities classification, credit risk modelling, and the generation of proprietary indicators and price derivatives in the financial world (\cite{ann2} \cite{ann3}). The deep neural network of the human brain is akin to a neural network. A "neuron" in a deep neural network is a mathematical function that collects and categorizes data according to a set of rules. The network closely resembles curve fitting and regression analysis, two statistical methods.
 
 \begin{figure}[h!]
 \centering
@@ -192,11 +192,11 @@ Neural networks aid in time-series forecasting, algorithmic trading, securities 
 \label{fig:mlp}
 \end{figure}
 
-Perceptrons are grouped in interconnected layers in a multi-layered perceptron (MLP) \cite{ann3}, as indicated in Figure \ref{fig:mlp} . The input layer is responsible for collecting input patterns. In the output layer, input patterns can be mapped to classifications or output signals. Hidden layers fine-tune the input weightings until the neural network's margin of error is as little as possible. Hidden layers are supposed to deduce salient elements from input data that have the ability to predict outcomes. This is how feature extraction works, and it's similar to how statistical methods such as principal component analysis function (\cite{ann3}).
+Perceptrons are grouped in interconnected layers in a multi-layered perceptron (MLP) \cite{ann3}, as indicated in Figure \ref{fig:mlp} . The input layer is responsible for collecting input patterns. In the output layer, input patterns can be mapped to classifications or output signals. Hidden layers fine-tune the input weightings until the neural network's margin of error is as little as possible. Hidden layers are supposed to deduce salient elements from input data that can predict outcomes. This is how feature extraction works, and it's similar to how statistical methods such as principal component analysis function (\cite{ann3}).
 
 \subsubsection{Model 4 - (LSTM) Long-Short Term Memory} \label{3model4}
 
-Long short-term memory networks, are a type of Deep Learning network. It's a class of recurrent neural networks (RNNs) that can learn long-term dependencies, which is useful for solving sequence prediction issues. Apart from single data points like photos, LSTM has feedback connections, which means it can process the complete sequence of data.
+Long short-term memory networks are a type of Deep Learning network. It's a class of recurrent neural networks (RNNs) that can learn long-term dependencies, which is useful for solving sequence prediction issues. Apart from single data points like photos, LSTM has feedback connections, which means it can process the complete sequence of data.
 
 \begin{figure}[H]
 \centering
@@ -210,9 +210,9 @@ An LSTM model's primary role is played by a memory cell called a 'cell state,' w
 
 \subsubsection{Model 5 - Challenge Team 2 - ResNet with an SE layer\cite{second_team} } \label{3model5}
 
-Challenge team 2 designed a modified ResNet with larger kernel sizes that models long-term dependencies. They embedded a Squeeze-And-Excitation layer into the modified ResNet to learn the importance of each lead adaptively. 
+Challenge team 2 designed a modified ResNet with larger kernel sizes that model long-term dependencies. They embedded a Squeeze-And-Excitation layer into the modified ResNet to learn the importance of each lead adaptively. 
 
-After obtaining the input signals, they designed ResNet to assign the 12-lead ECG recordings into the 24 diagnostic classes. 
+After obtaining the input signals, they designed ResNet to assign the 12-lead ECG recordings to the 24 diagnostic classes. 
 
 \begin{figure}[H]
 \centering
@@ -222,11 +222,11 @@ After obtaining the input signals, they designed ResNet to assign the 12-lead EC
 \end{figure}
 
 
-As shown in [\ref{fig:team_two_network}] the improved ResNet consists of one convolutional layer followed by N = 8 residual blocks (ResBs), each of which contain two convolutional layers and a squeeze and excitation (SE) block (Fig. 2). Due to the fact that some samples have multiple classes of 27 clinical diagnoses, instead of using the softmax function in traditional classification problem, they assumed that each class was independent and used the sigmoid function for each output neurons to cope with this multi-task problem.
+As shown in [\ref{fig:team_two_network}] the improved ResNet consists of one convolutional layer followed by N = 8 residual blocks (ResBs), each of which contains two convolutional layers and a squeeze and excitation (SE) block (Fig. 2). Since some samples have multiple classes of 27 clinical diagnoses, instead of using the softmax function in a traditional classification problem, they assumed that each class was independent and used the sigmoid function for each output neurons to cope with this multi-task problem.
 
 The first (convolutional) layer and the initial two ResBs units have 64 convolution filters. The number of filters increases by a factor of two for every second ResB unit. The feature dimension is halved after the max pooling layer, and the third, fifth, and seventh ResBs.
 
-The improved ResNet has four modifications from the original ResNet \cite{he2015delving}. First, they modified the final fully connected (FC) layer to incorporate patient age and gender. These two features were passed through another FC layer with 10 neurons prior to inclusion in the final layer. Second, they used a relatively large kernel size of 15 in the first convolutional kernel, and a large kernel size equal to 7 in the latter convolutional kernels. Previous work has shown that large kernel sizes are more helpful for networks to learn meaningful features \cite{hannun2019cardiologist}. 
+The improved ResNet has four modifications from the original ResNet \cite{he2015delving}. First, they modified the final fully connected (FC) layer to incorporate patient age and gender. These two features were passed through another FC layer with 10 neurons before inclusion in the final layer. Second, they used a relatively large kernel size of 15 in the first convolutional kernel, and a large kernel size equal to 7 in the latter convolutional kernels. Previous work has shown that large kernel sizes are more helpful for networks to learn meaningful features \cite{hannun2019cardiologist}. 
 
 
 \begin{figure}[H]
@@ -236,7 +236,7 @@ The improved ResNet has four modifications from the original ResNet \cite{he2015
 \label{fig:team_two_network_2}
 \end{figure}
 
-Third, as shown in [\ref{fig:team_two_network_2}], they added a dropout layer with a drop out rate of 0.2 between two convolutional kernels in each ResB to reduce the likelihood of overfitting. Finally, They added a SE block into each ResB depicted in [\ref{fig:team_two_network_2}]. The SE block has been to model channel inter-dependencies, and in this case, they incorporate it to model the spatial relationship between the ECG channels. The SE block, introduced by \cite{Hu_2018_CVPR} uses a multi-layer perceptron (MLP) with one hidden layer to calculate the importance of the channels. The parameter r = 16 in Fig. 2 denotes the reduction factor, which controls the capacity of the MLP.
+Third, as shown in [\ref{fig:team_two_network_2}], they added a dropout layer with a dropout rate of 0.2 between two convolutional kernels in each ResB to reduce the likelihood of overfitting. Finally, They added a SE block into each ResB depicted in [\ref{fig:team_two_network_2}]. The SE block has been to model channel inter-dependencies, and in this case, they incorporate it to model the spatial relationship between the ECG channels. The SE block, introduced by \cite{Hu_2018_CVPR} uses a multi-layer perceptron (MLP) with one hidden layer to calculate the importance of the channels. The parameter r = 16 in Fig. 2 denotes the reduction factor, which controls the capacity of the MLP.
 
 
 \subsubsection{Model 6 - Challenge Team 20 - A hybrid model (CNN + Rule Based )\cite{second_team} } \label{3model6}
@@ -245,17 +245,17 @@ Team 20 developed a hybrid model combining a rule-based algorithm with different
 
 \textbf{CNN Architectures:}
 
-As a starting point for classifying the ECG-signals, they employed FCN and Encoder types of CNN models as described in \cite{ismail2019deep}. Two models were tested without any modifications to the architecture other than changing the input and output layers to fit our input data and output classes. All output layers of each model used a Sigmoid activation function.
+As a starting point for classifying the ECG signals, they employed FCN and Encoder types of CNN models as described in \cite{ismail2019deep}. Two models were tested without any modifications to the architecture other than changing the input and output layers to fit our input data and output classes. All output layers of each model used a Sigmoid activation function.
 
 To make use of the provided age and gender data, a simpler neural network model with 2 inputs, one hidden layer of 50 units, and 2 outputs in the final layer was added. This new model was combined with our FCN and Encoder models by concatenation of the last layer of the CNNs.
 
-Age and gender data were passed into the simple neural network as integers, but in some information files, the age of the patient was not given and was assigned a value of -1. The gender data was transformed into integers, where a male was set equal to 0, female equal to 1, and unknown was set to 2.
+Age and gender data were passed into the simple neural network as integers, but in some information files, the age of the patient was not given and was assigned a value of -1. The gender data was transformed into integers, where a male was set equal to 0, a female equal to 1, and an unknown was set to 2.
 
 The two CNN models (FCN and Encoder) were combined as parallel models, concatenated on the second last layer. This model was tested with and without a parallel dense layer1.
 
 \textbf{Rule-Based Model}
 
-The rule-based algorithm used the raw ECG signal, without any padding or truncating, as input. R-peak detection \cite{4122029}, and heart rate variability (HRV) analysis was programmed to add relevant derived features to the algorithm. An HRV-score was obtained by computing the root mean square of successive differences between normal heartbeats (RMSSD) using the detected R-peaks as timing indicators of each heartbeat.
+The rule-based algorithm used the raw ECG signal, without any padding or truncating, as input. R-peak detection \cite{4122029}, and heart rate variability (HRV) analysis was programmed to add relevant derived features to the algorithm. An HRV score was obtained by computing the root mean square of successive differences between normal heartbeats (RMSSD) using the detected R-peaks as timing indicators of each heartbeat.
 
 The rule-based algorithm was able to classify eight different diagnoses: atrial fibrillation, bradycardia, low QRS-complex, normal sinus rhythm, pacing rhythm, sinus arrhythmia, sinus bradycardia, and sinus tachycardia.
 
@@ -264,12 +264,12 @@ The rule-based algorithm performed classification independent of the deep learni
 
 \subsection{Metrics} \label{3metrics}
 
-It is vital to create metrics that will assist in determining whether a model is better than others in order to determine whether it is better than others. There are explanations for each of the metrics used in the following sections.
+It is vital to create metrics that will assist in determining whether a model is better than others to determine whether it is better than others. There are explanations for each of the metrics used in the following sections.
 
 
 \subsubsection{Confusion Matrix} \label{4confmatrix}
 
-A confusion matrix, like the one shown in table \ref{table:confmatr}, demonstrates how well a classification model works on test data for which the true values are known (\cite{metrics2}). The confusion matrix is simple in itself, but the related nomenclature can be confusing. In the following examples, I've created a hypothetical target variable called "Diagnose A" with the values "Yes" (if the recording belongs to that diagnose) and "No" (if the recording does not belong to that diagnose).
+A confusion matrix, like the one shown in table \ref{table:confmatr}, demonstrates how well a classification model works on test data for which the true values are known (\cite{metrics2}). The confusion matrix is simple in itself, but the related nomenclature can be confusing. In the following examples, I've created a hypothetical target variable called "Diagnose A" with the values "Yes" (if the recording belongs to that diagnosis) and "No" (if the recording does not belong to that diagnosis).
 
 
 \begin{table}[H]
@@ -291,10 +291,10 @@ A confusion matrix, like the one shown in table \ref{table:confmatr}, demonstrat
 Here is an explanation for each of the matrix's elements to understand the preceding terminology (\cite{metrics2} \cite{metrics1}).
 
 \begin{itemize}
-    \item \textit{True negatives (TN):} The model predicted they wouldn't have the diagnose A, and they don't.
-    \item \textit{True positives (TP):} These are examples when the model predicted yes (the recording has the diagnose A), and they actually don't.
-    \item \textit{False positives (FP):} The model projected that they would have the diagnose A, but they don't. (This is also referred to as a "Type I error.")
-    \item \textit{False negatives (FN):} The model anticipated that they would not have diagnose A, yet they do. (This is often referred to as a "Type II error.")
+    \item \textit{True negatives (TN):} The model predicted they wouldn't have diagnosed A, and they don't.
+    \item \textit{True positives (TP):} These are examples when the model predicted yes (the recording has the diagnose A), and they don't.
+    \item \textit{False positives (FP):} The model projected that they would have diagnosed A, but they don't. (This is also referred to as a "Type I error.")
+    \item \textit{False negatives (FN):} The model anticipated that they would not have diagnosed A, yet they do. (This is often referred to as a "Type II error.")
 \end{itemize}
 
 \subsubsection{Accuracy} \label{4accuracy}
@@ -305,7 +305,7 @@ Here is an explanation for each of the matrix's elements to understand the prece
 
 The most basic performance metric is accuracy, which is defined as the proportion of correctly predicted observations to all observations. If a model is correct, one would assume it is the best. Yes, accuracy is a relevant measure when the datasets are symmetric and the number of false positives and false negatives is about equal.
 
-Imagining the case when the training set contains 98 percent samples of class A and $2\%$ samples of class B, for example. The model may thus easily attain a $98\%$ training accuracy by simply guessing every training sample that belongs to class A. When the same model is tested on a test set that contains $60\%$ class A samples and $40\%$ class B samples, the test accuracy reduces to $60\%$. As a result, classification accuracy is poor, but it gives the image of great accuracy.
+Imagine the case when the training set contains 98 percent samples of class A and $2\%$ samples of class B, for example. The model may thus easily attain a $98\%$ training accuracy by simply guessing every training sample that belongs to class A. When the same model is tested on a test set that contains $60\%$ class A samples and $40\%$ class B samples, the test accuracy reduces to $60\%$. As a result, classification accuracy is poor, but it gives the image of great accuracy.
 
 Then, when the cost of misclassification of minor class samples becomes significant, (\cite{metrics1}) the true issue appears. The cost of failing to diagnose, for example, a sick person's ailment is significantly greater than the expense of submitting a healthy person to additional tests when dealing with a rare but lethal disorder.
 
@@ -314,18 +314,18 @@ Then, when the cost of misclassification of minor class samples becomes signific
     Precision = \frac{TP}{TP+FP}
 \end{equation}
 
-Precision \cite{metrics2} is the ratio of accurately predicted positive observations to total expected positive observations. This measure answers the question of how many of the drivers who were identified as drowsy actually drove. Precision is linked to a low false-positive rate.
+Precision \cite{metrics2} is the ratio of accurately predicted positive observations to total expected positive observations. This measure answers the question of how many of the drivers who were identified as drowsy drove. Precision is linked to a low false-positive rate.
 
-Precision is a good statistic to employ when the costs of False Positive are high. Take, for example, the identification of email spam. In email spam detection, a false positive happens when an email that is not spam (actual negative) is wrongly identified as spam (predicted spam). If the precision of the spam detection model is low, the email user may miss important emails.
+Precision is a good statistic to employ when the costs of False positives are high. Take, for example, the identification of email spam. In email spam detection, a false positive happens when an email that is not spam (actual negative) is wrongly identified as spam (predicted spam). If the precision of the spam detection model is low, the email user may miss important emails.
 
 \subsubsection{Recall} \label{4recall}
 \begin{equation}
     Recall = \frac{TP}{TP+FN}
 \end{equation}
 
-Recall \cite{metrics2} is the ratio of successfully predicted positive observations to all observations in the actual class. It's meant to answer the question of how many drivers who actually slept were labeled as such.
+Recall \cite{metrics2} is the ratio of successfully predicted positive observations to all observations in the actual class. It's meant to answer the question of how many drivers who slept were labelled as such.
 
-In the case of identifying sick patients, for example, if a sick patient (Actual Positive) conducts the test and is predicted to be healthy (Predicted Negative). The cost of False Negative will be quite high if the condition is infectious.
+In the case of identifying sick patients, for example, if a sick patient (Actual Positive) conducts the test and is predicted to be healthy (Predicted Negative). The cost of a False Negative will be quite high if the condition is infectious.
 
 \subsubsection{F1 Score} \label{4F1}
 \begin{equation}
@@ -336,7 +336,7 @@ The F1-Score is the weighted average of Precision and Recall. As a result, both 
 
 \subsubsection{Overall index} \label{4overallindex}
 
-As a final metrics, I introduced the use of the mean value of Accuracy, Precision, Recall and F1-Score. With the latter, it is possible to check with only one metric the overall behaviour of the classifiers.
+As a final metric, I introduced the use of the mean value of Accuracy, Precision, Recall and F1-Score. With the latter, it is possible to check with only one metric the overall behaviour of the classifiers.
 
 % \subsection{Fine tuning hyper parameters} \label{3finetuning}
 
@@ -359,11 +359,11 @@ As a final metrics, I introduced the use of the mean value of Accuracy, Precisio
 % \end{figure}
 
 
-% Along with this thesis, there are two main approaches used to find the optimal hyper parameters for the selected methods: Grid search and Random Search.
+% Along with this thesis, there are two main approaches used to find the optimal hyperparameters for the selected methods: Grid search and Random Search.
 
 % \subsubsection{Grid Search} \label{31gridsearch}
 
-% One can put up a grid of hyperparameters in Grid Search and train/test the model on all the potential combinations. To determine the parameters to utilize in Grid Search, one may now look at several possible ranges and create a grid-based on them to see if a better combination can be found. The scikit-learn \textit{GridSearchCV()} function can be used to implement Grid Search in Python.
+% One can put up a grid of hyperparameters in Grid Search and train/test the model on all the potential combinations. To determine the parameters to utilize in Grid Search, one may now look at several possible ranges and create a grid based on them to see if a better combination can be found. The scikit-learn \textit{GridSearchCV()} function can be used to implement Grid Search in Python.
 
 % \subsubsection{Random Search} \label{31randomsearch}
 
@@ -375,7 +375,7 @@ As a final metrics, I introduced the use of the mean value of Accuracy, Precisio
 \subsection{Definition}
 Edge computing is a distributed computing paradigm that brings computation and data storage closer to the sources of data. This is expected to improve response times and save bandwidth. It is an architecture rather than a specific technology. It is a topology- and location-sensitive form of distributed computing.
 
-Edge computing is primarily concerned with transmitting data among the devices at the edge, closer to where user applications are located, rather than to a centralized server (see \ref{fig:ec_fundamentals}). Edge node (or edge client, edge device) is usually the resource-constraint device that end user uses and it is geographically close to the nearest edge server, who has abundant computing resources and high bandwidth communicating with end nodes. When the edge server requires more computing power, it will connect to the cloud server. The most important consequences of this architecture are twofold: latency is dramatically reduced as data does not need to travel as far, and bandwidth availability improves significantly, as the user is no longer relying on sharing a single traffic lane in order to transfer their data. Indeed, this new computing paradigm offers great cost savings for companies who do not have the resources to build dedicated data centers for their operations. Instead, engineers can build a reliable network of smaller and cheaper edge devices. \cite{fedrated_learning_as_edge_computing}
+Edge computing is primarily concerned with transmitting data among the devices at the edge, closer to where user applications are located, rather than to a centralized server (see \ref{fig:ec_fundamentals}). The edge node (or edge client, edge device) is usually the resource-constraint device that the end user uses and it is geographically close to the nearest edge server, who has abundant computing resources and high bandwidth communicating with end nodes. When the edge server requires more computing power, it will connect to the cloud server. The most important consequences of this architecture are twofold: latency is dramatically reduced as data does not need to travel as far, and bandwidth availability improves significantly, as the user is no longer relying on sharing a single traffic lane to transfer their data. Indeed, this new computing paradigm offers great cost savings for companies that do not have the resources to build dedicated data centers for their operations. Instead, engineers can build a reliable network of smaller and cheaper edge devices. \cite{fedrated_learning_as_edge_computing}
 
 
 \begin{figure}[H]
@@ -386,25 +386,25 @@ Edge computing is primarily concerned with transmitting data among the devices a
 \end{figure}
 
 
-In addition, federated learning has been discussed a lot recently. It is a collaborative machine learning framework allowing devices from different resources with different private datasets working together to study and train a global model. Federated learning can not only collaborate the computational resources from different devices, but also preserve the privacy at the same time.
+In addition, federated learning has been discussed a lot recently. It is a collaborative machine learning framework allowing devices from different resources with different private datasets working together to study and train a global model. Federated learning can not only collaborate the computational resources from different devices but also preserve privacy at the same time.
 
 
-Given the common features of both edge computing and federated learning, edge computing is a naturally suitable environment to apply federated learning framework. Therefore, edge federated learning is more and more appealing in both academic research and industry in recent days. Here, we first have a brief introduction to edge computing and federated learning respectively and discuss in details later. 
+Given the common features of both edge computing and federated learning, edge computing is a naturally suitable environment to apply the federated learning framework. Therefore, edge federated learning is more and more appealing in both academic research and industry in recent days. Here, we first have a brief introduction to edge computing and federated learning respectively and discuss them in detail later. 
 
 \subsection{Reasons for Edge Computing:}
 
 There are a set of key reasons why industry executives are transitioning from 
-a traditional cloud-based model to edge computing platforms. The two major factors that were already discussed beforehand are low latency and high bandwidth \cite{satyanarayanan2017emergence}. However, the edge also provides for greater security. For example, sending data to an edge device will give any potential attackers less time to launch an attack as compared to the cloud simply because the latency is lower. Moreover, attacks like DDoS that would normally be debilitating in a cloud-based environment are rendered almost harmless in an edge computing environment because the affected edge devices can be removed from the network without hampering the overall functionality of the network as a whole. Of course, this also means that edge networks are much more reliable as they do not have a single point of failure. As discussed briefly beforehand, edge networks are much more easily scalable because the devices have much smaller footprints. Indeed, a scale-out strategy of scalability rather than a scale-up one offers companies a very attractive way of getting good performance with low cost. Moreover, some of these edge devices or edge data centers may not even need to be built from scratch by any one company. Different stakeholders can partner up to share the resources from the already existing IoT devices in the edge network.
+a traditional cloud-based model to edge computing platforms. The two major factors that were already discussed beforehand are low latency and high bandwidth \cite{satyanarayanan2017emergence}. However, the edge also provides for greater security. For example, sending data to an edge device will give any potential attackers less time to launch an attack as compared to the cloud simply because the latency is lower. Moreover, attacks like DDoS that would normally be debilitating in a cloud-based environment are rendered almost harmless in an edge computing environment because the affected edge devices can be removed from the network without hampering the overall functionality of the network as a whole. Of course, this also means that edge networks are much more reliable as they do not have a single point of failure. As discussed briefly beforehand, edge networks are much more easily scalable because the devices have much smaller footprints. Indeed, a scale-out strategy of scalability rather than a scale-up one offers companies a very attractive way of getting good performance at a low cost. Moreover, some of these edge devices or edge data centers may not even need to be built from scratch by any one company. Different stakeholders can partner up to share the resources from the already existing IoT devices in the edge network.
 
 
 \subsection{EC Operating Principles:}
 
-In order to deliver these benefits to end-users, engineers have relied on a common set of key operating principles when building edge computing systems \cite{khan2019edge}:
+To deliver these benefits to end-users, engineers have relied on a common set of key operating principles when building edge computing systems \cite{khan2019edge}:
 
 \textbf{Mobility}: For applications like self-driving cars, the edge devices have to accommodate a constantly moving end-user without sacrificing latency or bandwidth. Some approaches solve this problem by positioning edge devices on the roadside.
 
 
-\textbf{Proximity}: In order to deliver low latency guarantees, the edge devices must be positioned as close as possible to the end users. This could mean performing computation directly at the edge device or investing in a local edge computing data center that is close to the end-user.
+\textbf{Proximity}: To deliver low latency guarantees, the edge devices must be positioned as close as possible to the end users. This could mean performing computation directly at the edge device or investing in a local edge computing data center that is close to the end-user.
 
 \textbf{Coverage:} For edge computing to become ubiquitous, network coverage must be far-reaching. Thus, the exact distribution of nodes in an edge computing framework is imperative to achieving an optimal user experience. Of course, a dense distribution is preferred, but this must be balanced with cost constraints.
 
@@ -425,7 +425,7 @@ Federated learning (FL) is a machine learning technique for training machine lea
 
 Figure \ref{fig:fl_overview} depicts a high-level view of the framework and how the technologies will interact together. The IoT devices will collect data from users and train a local deep learning model that is a copy of a global model that was previously received. Following the completion of the local training phase, the models will collaborate to train a global model utilizing their updates rather than the raw data provided by the users. These model updates indicate changes in the weights of the models during the training process and do not reflect any private or personal information about the users.
 
-All participating models will send updates to a cloud server, where they will be compiled and used to train the global model \cite{fl2} \cite{fl3}. Each device will receive a new copy of the updated global model once the global model training procedure is completed. As a result, the models will be trained and updated on a regular basis without sharing any personal information. As a result, the framework will support an IoT-based decentralized architecture in which models are spread among IoT devices without the need for a centralized server to operate the model and serve users. It will also protect users' privacy by processing and analyzing their data on IoT devices without disclosing it.
+All participating models will send updates to a cloud server, where they will be compiled and used to train the global model \cite{fl2} \cite{fl3}. Each device will receive a new copy of the updated global model once the global model training procedure is completed. As a result, the models will be trained and updated regularly without sharing any personal information. As a result, the framework will support an IoT-based decentralized architecture in which models are spread among IoT devices without the need for a centralized server to operate the model and serve users. It will also protect users' privacy by processing and analyzing their data on IoT devices without disclosing it.
 
 \subsection{FL types}
 
@@ -433,7 +433,7 @@ FL is divided into five categories \cite{fl26_types} based on data partitioning,
 
 \subsubsection{Data Partitioning}
 
-The datasets of various clients share the same properties in \textbf{Horizontal data partitioning} \cite{fl25}, however there is limited sample space intersection. All FL architectures use horizontal partitioning the most. Aggregation at the server is made easier by the fact that a standard model can be used for all clients; FedAvg is typically used for aggregation. A dataset containing ONLY breast cancer patients from a specific hospital would be a simple to comprehend example. 
+The datasets of various clients share the same properties in \textbf{Horizontal data partitioning} \cite{fl25}, however, there is limited sample space intersection. All FL architectures use horizontal partitioning the most. Aggregation at the server is made easier by the fact that a standard model can be used for all clients; FedAvg is typically used for aggregation. A dataset containing ONLY breast cancer patients from a specific hospital would be simple to comprehend example. 
 
 \begin{figure}[H]
 \centering
@@ -444,7 +444,7 @@ The datasets of various clients share the same properties in \textbf{Horizontal 
 
 When clients are exposed to distinct feature spaces but the same or similar sample space, \textbf{Vertical Data Partitioning} comes into play. Entity alignment algorithms are utilized to find overlapping samples among the client data, and this overlapped data is used for training \cite{fl26_types}. A dataset of students' GPAs obtained from institutions across the globe is a nice example. The feature space, which includes the grading scale and evaluation measure, is distinct.
 
-Horizontal and vertical data partitioning are combined in \textbf{Hybrid Data Partitioning}. A set of universities intending to develop a FL System to assess student achievement across branches is an easy to comprehend case for hybrid partitioning.
+Horizontal and vertical data partitioning are combined in \textbf{Hybrid Data Partitioning}. A set of universities intending to develop an FL System to assess student achievement across branches is an easy to comprehend case for hybrid partitioning.
 
 \subsubsection{ML models}
 
@@ -472,7 +472,7 @@ The most controversial part of FL is how it deals with privacy. The main concept
 
 \textbf{Differential privacy} is a technique for hiding gradients by adding random noise to data or model parameters. Due to the extra noise, this strategy has a considerable negative in terms of model accuracy.
 
-In FL systems, \textbf{cryptographic approaches} such as homomorphic encryption and safe multi-party computation are commonly used. The process is straightforward: clients send encrypted data to the server, the server processes the data, and then the encrypted output is decrypted to obtain the final result. Despite the fact that these methods provide protection against a wide range of threats, they are computationally intensive.
+In FL systems, \textbf{cryptographic approaches} such as homomorphic encryption and safe multi-party computation is commonly used. The process is straightforward: clients send encrypted data to the server, the server processes the data, and then the encrypted output is decrypted to obtain the final result. Even though these methods protect against a wide range of threats, they are computationally intensive.
 
 \subsubsection{Architecture}
 
@@ -490,7 +490,7 @@ In a \textbf{decentralized design}, on the other hand, clients take turns acting
 
 \subsubsection{Scale of Federation}
 
-The scale of federation can be divided into two types: cross-silo and cross-device. To grasp the distinction between the two, relate cross-silo with organizations and cross-devices with mobiles. When using \textbf{cross-silo}, the number of clients is usually minimal, but they have a lot of computing power. 
+The scale of the federation can be divided into two types: cross-silo and cross-device. To grasp the distinction between the two, relate cross-silo with organizations and cross-devices with mobiles. When using \textbf{cross-silo}, the number of clients is usually minimal, but they have a lot of computing power. 
 
 \begin{figure}[H]
 \centering
@@ -503,7 +503,7 @@ Regarding \textbf{cross-device}, the number of clients is enormous, but their co
 
 \subsection{Advantages and disadvantages}
 
-FL has a lot of advantages over traditional, centralized systems \cite{fl27_adv_disadv}. Some of the most remarkable The upper hands of FL are:
+FL has a lot of advantages over traditional, centralized systems \cite{fl27_adv_disadv}. Some of the most remarkable upper hands of FL are:
 
 \begin{itemize}
     \item \textbf{Data security}: Keeping the training dataset on the devices eliminates the need for a data pool for the model.
@@ -512,7 +512,7 @@ FL has a lot of advantages over traditional, centralized systems \cite{fl27_adv_
     \item \textbf{Technology efficiency}: Because federated learning models do not require a single complex central server to evaluate data, this technique requires less complex hardware.
 \end{itemize}
 
-On the other hand, FL need to deal with some relevant challenges. The most common are:
+On the other hand, FL needs to deal with some relevant challenges. The most common are:
 
 \begin{itemize}
     \item \textbf{Investment requirements}: FL models may necessitate frequent communication between nodes, which may necessitate an investment. This means that high bandwidth and storage capacity are among the system requirements.
@@ -535,41 +535,42 @@ It's structure is explained in figure [\ref{fig:fl_approach}].
 \label{fig:fl_approach}
 \end{figure}
 
-In above approach, I combined all six datasets (additional information here \ref{5dataset}) into a single dataset including 43,101 recordings. I came up with 41,894 after utilizing the methodology described in figure \ref{fig:fl_approach} (filtering out the non-representative classes). After that, I divided the data into train, validation, and test datasets at random. Later, I used an Unstratified random sampling (with replacement) method to acquire four separate samples from the original data. As a result, each sample has a varied distribution of labels (diagnoses).
+In the above approach, I combined all six datasets (additional information here \ref{5dataset}) into a single dataset including 43,101 recordings. I came up with 41,894 after utilizing the methodology described in figure \ref{fig:fl_approach} (filtering out the non-representative classes). After that, I divided the data into train, validation, and test datasets at random. Later, I used an Unstratified random sampling (with replacement) method to acquire four separate samples from the original data. As a result, each sample has a varied distribution of labels (diagnoses).
 
+\newpage 
 
 \section{Model conversion process} \label{4mconverionp}
 
-As depicted in \ref{fig:framework_used_by_2020_teams} , most of teams used \textbf{Pytorch} during the challenge implementation. As I am going to use Tensorflow as primary framework and later Tensorflow Lite for using them in mobile phones or in iot devices. Before going to conversion process itself lets look at fundamentals of Pytorch, Tensorflow and Tensorflow Lite.
+As depicted in \ref{fig:framework_used_by_2020_teams} , most of teams used \textbf{Pytorch} during the challenge implementation. As I am going to use Tensorflow as a primary framework and later Tensorflow Lite for using them on mobile phones or IoT devices. Before going to the conversion process itself let's look at the fundamentals of Pytorch, Tensorflow and Tensorflow Lite.
+
+
 \subsection{Pytorch:}
 PyTorch is an open source machine learning framework based on the Torch library, used for applications such as computer vision and natural language processing, primarily developed by Meta AI. It is free and open-source software released under the Modified BSD license. Although the Python interface is more polished and the primary focus of development, PyTorch also has a C++ interface.
 
-A number of pieces of deep learning software are built on top of PyTorch, including Tesla Autopilot, Uber's Pyro, Hugging Face's Transformers, PyTorch Lightning, and Catalyst.
+Several pieces of deep learning software are built on top of PyTorch, including Tesla Autopilot, Uber's Pyro, Hugging Face's Transformers, PyTorch Lightning, and Catalyst.
 
-\break
 \textbf{Features:}
 \begin{enumerate}
   \item Tensor computing (like NumPy) with strong acceleration via graphics processing units (GPU)
   \item Deep neural networks built on a tape-based automatic differentiation system.
 \end{enumerate}
 
-
 \subsection{Tensorflow:}
 
-TensorFlow is a free and open-source software library for machine learning and artificial intelligence. It can be used across a range of tasks but has a particular focus on training and inference of deep neural networks.
+TensorFlow is a free and open-source software library for machine learning and artificial intelligence. It can be used across a range of tasks but has a particular focus on the training and inference of deep neural networks.
 
 TensorFlow was developed by the Google Brain team for internal Google use in research and production. The initial version was released under the Apache License 2.0 in 2015. Google released the updated version of TensorFlow, named TensorFlow 2.0, in September 2001. TensorFlow can be used in a wide variety of programming languages, most notably Python, as well as Javascript, C++, and Java. This flexibility lends itself to a range of applications in many different sectors.
-\break\break
+
 \textbf{Features:}
 
 \begin{enumerate}
-  \item \textit{AutoDifferentiation} is the process of automatically calculating the gradient vector of a model with respect to each of its parameters. 
+  \item \textit{AutoDifferentiation} is the process of automatically calculating the gradient vector of a model concerning each of its parameters. 
   \item TensorFlow includes an \textit{eager execution} mode, which means that operations are evaluated immediately as opposed to being added to a computational graph which is executed later.
   \item In both eager and graph executions, TensorFlow provides an API for distributing computation across multiple devices with various distribution strategies. 
   \item To train and assess models, TensorFlow provides a set of \textbf{loss} functions (also known as cost functions).
 \end{enumerate}
 
-There are number of other features Tensorflow framework provides in which Tensorflow Lite is one of them. 
+There are several other features Tensorflow framework provides in which Tensorflow Lite is one of them. 
 
 \subsection{Tensorflow Lite:}
 TensorFlow Lite is a set of tools that enables on-device machine learning by helping developers run their models on mobile, embedded, and edge devices.
@@ -578,7 +579,7 @@ TensorFlow Lite is a set of tools that enables on-device machine learning by hel
 
 \begin{enumerate}
   \item Optimized for on-device machine learning, by addressing 5 key constraints: latency (there's no round-trip to a server), privacy (no personal data leaves the device), connectivity (internet connectivity is not required), size (reduced model and binary size) and power consumption (efficient inference and a lack of network connections).
-  \item Multiple platform support, covering Android and iOS devices, embedded Linux, and micro controllers.
+  \item Multiple platform support, covering Android and iOS devices, embedded Linux, and microcontrollers.
   \item Diverse language support, which includes Java, Swift, Objective-C, C++, and Python.
   \item High performance, with hardware acceleration and model optimization.
   \item End-to-end for common machine learning tasks such as image classification, object detection, pose estimation, question answering, text classification, etc. on multiple platforms.
@@ -586,66 +587,35 @@ TensorFlow Lite is a set of tools that enables on-device machine learning by hel
 
 \subsection{Conversion steps:}
 
-As we have seen above definition and features of different frameworks. Lets now look at how we can convert Pytorch model to tensorflow lite. 
+As we have seen above definitions and features of different frameworks. Let's now look at how we can convert the Pytorch model to TensorFlow lite. 
 
 \begin{enumerate}
 
-\item First we train the model using dataset or get trained model from any challenges team as most of them already stored them in .pt or .pth format. 
+\item First we train the model using a dataset or get a trained model from any challenges team as most of them already stored them in .pt or .pth format. 
 \break We can utilize open source \textbf{\href{https://netron.app/}{Netron}} viewer to look at model. 
-\item After the model is trained we will convert .pt or .pth file into .onnx format by utilizing \textit{torch.onnx.export} function from pytorch library. We can also use \textit{onnxruntime} package to perform inference on converted onnx model.  
+\item After the model is trained we will convert .pt or .pth file into .onnx format by utilizing \textit{torch.onnx.export} function from PyTorch library. We can also use \textit{onnxruntime} package to perform inference on the converted onnx model.  
 \break
 \textit{ONNX} is an open format built to represent machine learning models. \textit{ONNX} defines a common set of operators - the building blocks of machine learning and deep learning models - and a common file format to enable AI developers to use models with a variety of frameworks, tools, runtimes, and compilers. 
-\item After we have model in onnx format we can utilize \textit{\href{https://github.com/onnx/onnx-tensorflow}{onnx-tensorflow}} package to convert onnx model to \textit{protobuf} as .pb file. The \textit{protbuf} file contains the graph definition as well as the weights of the model. Thus, a pb file is all you need to be able to run a given trained model. It is important to not that .pb file is freezed version of the model.
+\item After we have model in onnx format we can utilize \textit{\href{https://github.com/onnx/onnx-tensorflow}{onnx-tensorflow}} package to convert onnx model to \textit{protobuf} as .pb file. The \textit{protbuf} file contains the graph definition as well as the weights of the model. Thus, a .pb file is all you need to be able to run a given trained model. It is important to note that the .pb file is a frozen version of the model.
 
 \begin{verbatim}
 onnx-tf convert -i /path/to/input.onnx -o /path/to/output
 \end{verbatim}
 
 using above command after installing the package should convert the model to .pb format
-\item After that we can directly load the model using \textit{tf.lite.TFLiteConverter.from\textunderscore saved \textunderscore model} function and following the simple code as described 
+\item After that we can directly load the model using\\ \textit{tf.lite.TFLiteConverter.from\textunderscore saved \textunderscore model} function and following the simple code as described 
 \url{https://www.tensorflow.org/lite/guide/ops_select#convert_a_model}
 \end{enumerate}
+
+\newpage
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.8]{img/model_conversion_process.png}
+\includegraphics[scale=0.9]{img/model_conversion_process.png}
 \caption{Model conversion process}
 \label{fig:model_conversion_process}
 \end{figure}
 
 
-Following the above process or subset of the above process I was able to convert our DNN ROS model[\ref{3model3}], team 2 model[\ref{3model5}] and team 20 [\ref{3model6}]. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Following the above process or subset of the above process, I was able to convert our DNN ROS model[\ref{3model3}], team 2 model[\ref{3model5}] and team 20 [\ref{3model6}]. 

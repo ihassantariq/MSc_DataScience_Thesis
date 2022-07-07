@@ -2,11 +2,11 @@
 % !TeX program = pdflatex
 % !TeX spellcheck = en_US
 
-\documentclass[LaM,binding=0.6cm]{sapthesis}
+\documentclass[LaM,binding=0.6cm,oneside]{sapthesis}
 
+%\documentclass[oneside]{book}
 
-
-%\usepackage{showframe}
+% \usepackage{showframe}
 
 \usepackage{indentfirst}
 \usepackage{float}
@@ -81,8 +81,6 @@ I also want to thank all faculty of data science program because they provided m
 
 
 \end{acknowledgments}
-\newpage 
-\let\cleardoublepage
 
 \tableofcontents
 
@@ -108,6 +106,6 @@ I also want to thank all faculty of data science program because they provided m
 \cleardoublepage
 \phantomsection
 \bibliographystyle{unsrt} % BibTeX style
-\bibliography{bibliography.bib} % BibTeX database without .bib extension
+\bibliography{bibliography} % BibTeX database without .bib extension
 
 \end{document}
