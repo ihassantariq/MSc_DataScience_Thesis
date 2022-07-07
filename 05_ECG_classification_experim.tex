@@ -143,7 +143,7 @@ Besides, the final distribution of the labels ended up as shown in figure \ref{f
 \label{fig:label_ditro_filtered}
 \end{figure}
 
-\subsection{Feature Selection and normalization}
+\subsection{Feature Selection and normalization}\label{5fsn}
 
 In an analytical context, having a huge amount is a double-edged sword. On the one hand, the more information existing to predict a phenomena, the better. On the other hand, the computational time required to process to much information may lead to training times that are not affordable. Regarding the latter I decided to perform a feature selection step in order to determine the most important features to predict the arrhythmias. 
 
@@ -318,7 +318,7 @@ Looking at above figure \ref{team20_conversion_comparison}, we can clearly see t
 
 \subsection{Metrics of models}
 
-As written previously, Catboost and XGBoost \ref{5CTLM1M2} are not convertible directly to tensorflow lite. Besides that other models were convertible and it was only worth to look at the models that performed well in terms of accuracy, f1-score and overall index because they will be later used for detecting arythmias in mobile applications. So, DNN ROS with overeall index as 0.62, LSTM with overall index as 0.49, Team 2 model with overall index as 0.64 and Team 20 model(CNN+Rule Based) with overall index of 0.47 was chosen for below analysis. 
+As written previously, Catboost and XGBoost \ref{5CTLM1M2} are not convertible directly to tensorflow lite. Besides that other models were convertible and it was only worth to look at the models that performed well in terms of accuracy, f1-score and overall index because they will be later used for detecting arrhythmias in mobile applications. So, DNN ROS with overeall index as 0.62, LSTM with overall index as 0.49, Team 2 model with overall index as 0.64 and Team 20 model(CNN+Rule Based) with overall index of 0.47 was chosen for below analysis. 
 
 
 \begin{figure}[H]
@@ -342,7 +342,7 @@ Now if we move toward looking at how much time it takes the to get output from t
 \label{inference_time_of_converted_models}
 \end{figure}
 
-If we look at above \ref{figure:inference_time_of_converted_models} figure we can clearly see that LSTM and DNN ROS models are way faster than Team 2 and Team 2. LSTM and DNN ROS models even after conversion is taking less than 0.30 sec to execute. To put it more precisely orginal DNN on test dataset with 2095 features takes 19 seconds to get outputs and .13 seconds for inference in case of converted model which is even less than original model. If we look at LSTM it does the same 13 seconds for original model and 067 seconds on converted model. This means that somehow both DNN and LSTM has to perform less operations and gets lighter and efficient after conversion. While on the other hand Team 2 and Team 20 models takes significantly too much time to output the results. More precisely, in case of Team 2 model it takes 1826 seconds to output 2095 results and 66960 seconds in case of converted model which raises concerns because its significantly slower than original model. As in the case of team 20 inference on original model was significantly smaller as 9.4 seconds and inference on converted model was huge slower 80232 seconds. It maybe due to CPU or GPU inference, I didn't get a chance to look at it. 
+If we look at above \ref{inference_time_of_converted_models} figure we can clearly see that LSTM and DNN ROS models are way faster than Team 2 and Team 2. LSTM and DNN ROS models even after conversion is taking less than 0.30 sec to execute. To put it more precisely orginal DNN on test dataset with 2095 features takes 19 seconds to get outputs and .13 seconds for inference in case of converted model which is even less than original model. If we look at LSTM it does the same 13 seconds for original model and .067 seconds on converted model. This means that somehow both DNN and LSTM has to perform less operations and gets lighter and efficient after conversion. While on the other hand Team 2 and Team 20 models takes significantly too much time to output the results. More precisely, in case of Team 2 model it takes 1826 seconds to output 2095 results and 66960 seconds in case of converted model which raises concerns because its significantly slower than original model. As in the case of team 20 inference on original model was significantly smaller as 9.4 seconds and inference on converted model was huge slower 80232 seconds. It maybe due to CPU or GPU inference, I didn't get a chance to look at it. 
 
 \begin{table}
 \centering
@@ -353,7 +353,7 @@ If we look at above \ref{figure:inference_time_of_converted_models} figure we ca
  Model's Name& Original Size&Converted size\\
  \hline
  DNN ROS   & 2.2MB   &   569KB\\
- LSTM&  82KB   & \textbf{29KB} \\
+ LSTM&  \textbf{82KB}   & \textbf{29KB} \\
  TEAM\#2 &33.8MB & 9.6MB\\
  TEAM\#20  & 138.8MB & 11.6MB\\
  \hline
@@ -363,15 +363,15 @@ If we look at above \ref{figure:inference_time_of_converted_models} figure we ca
  
  As you can see from \ref{tab:models_size_after_conversion}, the smallest model is LSTM and it even gets smaller when converted to tensorflow lite. Team \#20 model is really huge and its get converted to 11.6MB. Maybe because of that it takes time during inference. 
  
-\subsection{Models Deployment}
+\subsection{Models Deployment}\label{modelsdeployment}
 
-As part of the models testing on mobile devices after conversion. LSTM, DNN ROS and Team \#2 model has been deployed on the mobile devices while building a small demo application using flutter. \href{https://flutter.dev/}{Flutter} is an open-source UI software development kit created by Google. As flutter supports Tensorflow Lite models only Catboost, XGBoost are not deployed, as well as Team \#20 model because accuracy,f1-score of the team \#20 model is very less. 
+As part of the models testing on mobile devices after conversion. LSTM, DNN ROS and Team \#2 model has been deployed on the mobile devices while building a small demo application using flutter. \href{https://flutter.dev/}{Flutter} is an open-source UI software development kit created by Google. As flutter supports Tensorflow Lite models only Catboost, XGBoost are not deployed, as well as Team \#20 model because accuracy, f1-score of the team \#20 model is very less. 
 
 In the demo application, two main packages has been used \href{https://pub.dev/packages/tflite\_flutter}{tflite\_flutter} and \href{https://pub.dev/packages/csv}{csv}. \textit{csv} package has been used to read csv files and \textit{tflite\_flutter} is used to inference converted models. 
 
 \textbf{DNN ROS and LSTM}
 
-For DNN ROS and LSTM, I saved the features of test dataset 5\% after normalizing and standardizing as explained above in csv file. This csv file is used directly for inputs to the models. Then as both models are trained to classify single arythmia. Output of the model is based on classifying 27 arythmia's so whichever arythmia type is at highest probability is shown as predicted and then two more types according to highest probabilities is shown in \ref{dnn_deloyment} 
+For DNN ROS and LSTM, I saved the features of test dataset 5\% after normalizing and standardizing as explained above \ref{5fsn} in csv file. This csv file is used directly for inputs to the models. Then as both models are trained to classify single arythmia. Output of the model is based on classifying 27 arrhythmias so whichever arrhythmia type is at highest probability is shown as predicted and then two more types according to highest probabilities is shown in \ref{dnn_deloyment} 
 
 
 \begin{figure}[H]
