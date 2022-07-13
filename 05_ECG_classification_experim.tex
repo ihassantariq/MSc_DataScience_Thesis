@@ -162,7 +162,7 @@ A similar analysis can be derived from figures \ref{fig:cl_accuracy_methods} and
 \label{fig:times_cl}
 \end{figure}
 
-Finally, a measurement of the time taken to train for each model was included. As shown in figure \ref{fig:times_cl}, Team 20 model took almost 619 minutes, team 2 took 156 minutes and Catboost took almost 35 minutes to run. On the other hand, DNN and LSTM are algorithms that are employed a few times in training (close to 4 minutes on average). Finally, Catboost is the slowest method, although it generates the best results. In the counter position, DNN is the fastest method, and the performance is NOT quite different from Catboost and the team 2 model. Team 2 and team 20 models took this much time because they are end-to-end models instead of the feature-based model. Although I have done some experiments on team 2 which will be explained below. 
+Finally, a measurement of the time taken to train for each model was included. As shown in figure \ref{fig:times_cl}, Team 20 model took almost 619 minutes, team 2 took 156 minutes and Catboost took almost 35 minutes to run. On the other hand, DNN and LSTM are algorithms that are employed a few times in training (close to 4 minutes on average). Finally, Catboost is the slowest method, although it generates the best results. In the counter position, DNN is the fastest method, and the performance is NOT quite different from Catboost and the team 2 model. Team 2 and team 20 models took this much time because they are end-to-end models instead of the feature-based model. Although I have done some experiments on team 2 for utilizing the features in their but it didn't produce fruitful results. 
 
 
 \section{Conversion to Tensorflow Lite } \label{5CTL}
@@ -344,7 +344,7 @@ As depicted in figure \ref{fig:fl_label_distro_filtered}, the distribution among
 \label{fig:fl_label_distro_filtered_ROS_SMT}
 \end{figure}
 
-Once the four datasets were settled, the modelling part can be performed. As a reminder, in the FL technique, each local node will train a model and later it will send the weights to a global node where the weights are averaged and updated back to each client. Then, the DNN and LSTM methodologies were used to classify the ECG's arrhythmias. It is relevant to highlight that Catboost and XG-Boost were not employed in this step. The former was discarded for its low performance and the latter due to its huge training time. Moreover, in the consulted bibliography, it is not common to use those ML techniques within the FL.
+Once the four datasets were settled, the modelling part can be performed. As a reminder, in the FL technique, each local node will train a model and later it will send the weights to a global node where the weights are averaged and updated back to each client. Then, the DNN and LSTM methodologies were used to classify the ECG's arrhythmias. It is relevant to highlight that Catboost and XG-Boost were not employed in this step. The former was discarded due to its huge training time and latter for its low performance. Moreover, in the consulted bibliography, it is not common to use those ML techniques within the FL.
 
 \begin{figure}[H]
 \centering
