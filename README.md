@@ -1,5 +1,5 @@
-# MSc_DataScience_Thesis
-Analysis and Classification of 12 channel ECG signal using Edge Computing
+# Analysis and Classification of 12 channel ECG signal using Edge Computing
+
 
 ### Introduction
 
